@@ -117,7 +117,7 @@ function ucfc_render_modern_dashboard() {
         
         /* Section Headers */
         .section-header {
-            margin: 3rem 2.5rem 2rem;
+            margin: 2rem 1.5rem 1.5rem;
         }
         
         .section-header h2 {
@@ -131,12 +131,12 @@ function ucfc_render_modern_dashboard() {
         /* Header Section */
         .dashboard-header {
             background: var(--gradient-hero);
-            padding: 3rem 2.5rem;
+            padding: 2.5rem 1.5rem;
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 2rem 2rem;
+            border-radius: 0 0 1.5rem 1.5rem;
             box-shadow: 0 8px 32px rgba(255, 107, 107, 0.18);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
         
         .header-bg {
@@ -288,17 +288,17 @@ function ucfc_render_modern_dashboard() {
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            padding: 0 2.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
         }
         
         /* Stat Cards */
         .stat-card {
             width: 100%;
-            min-height: 180px;
-            padding: 2rem;
+            min-height: 160px;
+            padding: 1.5rem;
             background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
             border: 2px solid rgba(255, 107, 107, 0.1);
             border-radius: 1.5rem;
@@ -338,8 +338,8 @@ function ucfc_render_modern_dashboard() {
         }
         
         .stat-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             background: var(--gradient-primary);
             border-radius: 1rem;
             display: flex;
@@ -397,10 +397,10 @@ function ucfc_render_modern_dashboard() {
         /* Quick Actions */
         .quick-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            padding: 0 2.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .quick-actions-header {
@@ -464,8 +464,8 @@ function ucfc_render_modern_dashboard() {
         }
         
         .action-icon {
-            width: 72px;
-            height: 72px;
+            width: 64px;
+            height: 64px;
             background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 142, 60, 0.15) 100%);
             border-radius: 1.5rem;
             display: flex;
@@ -518,8 +518,8 @@ function ucfc_render_modern_dashboard() {
         .sales-chart-container,
         .recent-activity-container {
             background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFB 100%);
-            border-radius: 2rem;
-            padding: 2.5rem;
+            border-radius: 1.5rem;
+            padding: 1.75rem;
             border: 2px solid rgba(255, 107, 107, 0.1);
             box-shadow: 0 8px 32px rgba(255, 107, 107, 0.08);
         }
@@ -659,10 +659,10 @@ function ucfc_render_modern_dashboard() {
         /* Phase 4 Features Section */
         .phase4-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            padding: 0 2.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.25rem;
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .feature-card {
@@ -750,8 +750,9 @@ function ucfc_render_modern_dashboard() {
         .two-column-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 2rem;
+            gap: 1.25rem;
             margin-top: 2rem;
+            padding: 0 1.5rem;
         }
         
         /* Responsive Breakpoints */
