@@ -72,6 +72,9 @@ require_once get_template_directory() . '/inc/order-tracking-ajax.php';
 // Include SMS Notifications
 require_once get_template_directory() . '/inc/sms-notifications.php';
 
+// Include Push Notifications
+require_once get_template_directory() . '/inc/push-notifications.php';
+
 // Include AI System Files
 require_once get_template_directory() . '/inc/ai-assistant-settings.php';
 require_once get_template_directory() . '/inc/ai-conversation-logger.php';
