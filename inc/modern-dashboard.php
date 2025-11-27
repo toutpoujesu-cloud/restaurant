@@ -104,7 +104,7 @@ function ucfc_render_modern_dashboard() {
             padding-left: 0 !important;
         }
         
-        .ucfc-modern-dashboard {
+        .modern-dashboard {
             font-family: var(--font-body);
             background: var(--off-white);
             padding: 0;
@@ -113,6 +113,19 @@ function ucfc_render_modern_dashboard() {
             max-width: 100vw;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            margin: 3rem 2.5rem 2rem;
+        }
+        
+        .section-header h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-charcoal);
+            margin: 0;
         }
         
         /* Header Section */
@@ -165,22 +178,23 @@ function ucfc_render_modern_dashboard() {
             50% { transform: translate(30px, -30px) scale(1.1); }
         }
         
-        .header-content {
+        .dashboard-header-content {
             position: relative;
             z-index: 1;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1.5rem;
+            flex-wrap: wrap;
         }
         
-        .header-title-section {
+        .header-title-wrapper {
             display: flex;
             align-items: center;
             gap: 1.25rem;
         }
         
-        .title-icon {
+        .header-title-icon {
             width: 64px;
             height: 64px;
             background: rgba(255, 255, 255, 0.2);
@@ -190,7 +204,6 @@ function ucfc_render_modern_dashboard() {
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            font-size: 32px;
             animation: float 3s ease-in-out infinite;
         }
         
@@ -199,7 +212,7 @@ function ucfc_render_modern_dashboard() {
             50% { transform: translateY(-8px); }
         }
         
-        .header-title {
+        .dashboard-header-content h1 {
             font-family: var(--font-display);
             font-size: 2.5rem;
             font-weight: 700;
@@ -209,10 +222,10 @@ function ucfc_render_modern_dashboard() {
             letter-spacing: -0.02em;
         }
         
-        .header-subtitle {
+        .dashboard-header-content p {
             font-size: 1.125rem;
             color: rgba(255, 255, 255, 0.9);
-            margin-top: 0.25rem;
+            margin: 0.25rem 0 0 0;
             font-weight: 500;
         }
         
@@ -221,19 +234,24 @@ function ucfc_render_modern_dashboard() {
             gap: 0.75rem;
         }
         
-        .btn-icon {
+        .btn-primary,
+        .btn-secondary {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
+            padding: 0.875rem 1.5rem;
             border: none;
             border-radius: 1rem;
             font-family: var(--font-display);
-            font-size: 0.875rem;
+            font-size: 0.9375rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-decoration: none;
+        }
+        
+        .btn-icon {
+            font-size: 1.25rem;
         }
         
         .btn-secondary {
@@ -272,6 +290,8 @@ function ucfc_render_modern_dashboard() {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
+            padding: 0 2.5rem;
+            margin-bottom: 3rem;
         }
         
         /* Stat Cards */
@@ -376,8 +396,11 @@ function ucfc_render_modern_dashboard() {
         
         /* Quick Actions */
         .quick-actions {
-            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
             padding: 0 2.5rem;
+            margin-bottom: 3rem;
         }
         
         .quick-actions-header {
@@ -458,12 +481,16 @@ function ucfc_render_modern_dashboard() {
             transform: scale(1.1) rotateZ(5deg);
         }
         
+        .action-content {
+            flex: 1;
+        }
+        
         .action-title {
             font-family: var(--font-display);
             font-size: 1.375rem;
             font-weight: 600;
             color: var(--dark-charcoal) !important;
-            margin-bottom: 0.5rem;
+            margin: 0 0 0.5rem 0;
         }
         
         .action-card:hover .action-title {
@@ -475,6 +502,7 @@ function ucfc_render_modern_dashboard() {
             font-size: 0.9375rem;
             color: var(--slate-gray) !important;
             line-height: 1.6;
+            margin: 0;
         }
         
         /* Dashboard Columns */
@@ -500,20 +528,20 @@ function ucfc_render_modern_dashboard() {
             max-height: 200px !important;
         }
         
-        .sales-chart-header,
-        .activity-header {
+        .chart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 2rem;
         }
         
-        .sales-chart-title,
-        .activity-title {
+        .chart-header h3,
+        .recent-activity-container h3 {
             font-family: var(--font-display);
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--dark-charcoal);
+            margin: 0 0 2rem 0;
         }
         
         .time-period-selector {
@@ -633,7 +661,8 @@ function ucfc_render_modern_dashboard() {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-top: 2rem;
+            padding: 0 2.5rem;
+            margin-bottom: 3rem;
         }
         
         .feature-card {
