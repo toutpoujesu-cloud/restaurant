@@ -131,12 +131,12 @@ function ucfc_render_modern_dashboard() {
         /* Header Section */
         .dashboard-header {
             background: var(--gradient-hero);
-            padding: 2.5rem 1.5rem;
+            padding: 2rem 1.5rem;
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 1.5rem 1.5rem;
+            border-radius: 0 0 1.25rem 1.25rem;
             box-shadow: 0 8px 32px rgba(255, 107, 107, 0.18);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         
         .header-bg {
@@ -195,8 +195,8 @@ function ucfc_render_modern_dashboard() {
         }
         
         .header-title-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             border-radius: 1rem;
@@ -214,7 +214,7 @@ function ucfc_render_modern_dashboard() {
         
         .dashboard-header-content h1 {
             font-family: var(--font-display);
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: white;
             text-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
@@ -288,8 +288,8 @@ function ucfc_render_modern_dashboard() {
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
             padding: 0 1.5rem;
             margin-bottom: 2rem;
         }
@@ -297,8 +297,8 @@ function ucfc_render_modern_dashboard() {
         /* Stat Cards */
         .stat-card {
             width: 100%;
-            min-height: 160px;
-            padding: 1.5rem;
+            min-height: 140px;
+            padding: 1.25rem;
             background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
             border: 2px solid rgba(255, 107, 107, 0.1);
             border-radius: 1.5rem;
@@ -338,10 +338,10 @@ function ucfc_render_modern_dashboard() {
         }
         
         .stat-icon {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             background: var(--gradient-primary);
-            border-radius: 1rem;
+            border-radius: 0.875rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -352,7 +352,7 @@ function ucfc_render_modern_dashboard() {
         
         .stat-value {
             font-family: var(--font-display);
-            font-size: 3.5rem;
+            font-size: 2.75rem;
             font-weight: 700;
             color: var(--dark-charcoal);
             line-height: 1;
@@ -397,8 +397,8 @@ function ucfc_render_modern_dashboard() {
         /* Quick Actions */
         .quick-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
             padding: 0 1.5rem;
             margin-bottom: 2rem;
         }
@@ -426,8 +426,8 @@ function ucfc_render_modern_dashboard() {
         /* Action Cards */
         .action-card {
             position: relative;
-            padding: 1.5rem;
-            min-height: 180px;
+            padding: 1.25rem;
+            min-height: 150px;
             display: flex;
             flex-direction: column;
             background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFB 100%);
@@ -464,17 +464,17 @@ function ucfc_render_modern_dashboard() {
         }
         
         .action-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 142, 60, 0.15) 100%);
-            border-radius: 1.5rem;
+            border-radius: 1.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), 0 4px 16px rgba(255, 107, 107, 0.2);
             transition: all 0.3s ease;
-            margin-bottom: 1.5rem;
-            font-size: 36px;
+            margin-bottom: 1rem;
+            font-size: 28px;
         }
         
         .action-card:hover .action-icon {
@@ -487,7 +487,7 @@ function ucfc_render_modern_dashboard() {
         
         .action-title {
             font-family: var(--font-display);
-            font-size: 1.375rem;
+            font-size: 1.125rem;
             font-weight: 600;
             color: var(--dark-charcoal) !important;
             margin: 0 0 0.5rem 0;
@@ -499,7 +499,7 @@ function ucfc_render_modern_dashboard() {
         
         .action-description {
             font-family: var(--font-body);
-            font-size: 0.9375rem;
+            font-size: 0.875rem;
             color: var(--slate-gray) !important;
             line-height: 1.6;
             margin: 0;
@@ -659,8 +659,8 @@ function ucfc_render_modern_dashboard() {
         /* Phase 4 Features Section */
         .phase4-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.25rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
             padding: 0 1.5rem;
             margin-bottom: 2rem;
         }
