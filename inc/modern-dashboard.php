@@ -86,7 +86,6 @@ function ucfc_render_modern_dashboard() {
         .ucfc-modern-dashboard {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: calc(100vh - 32px);
             padding: 40px;
             margin: -20px -20px -20px -42px;
             width: calc(100% + 62px);
@@ -520,7 +519,7 @@ function ucfc_render_modern_dashboard() {
                     <span class="ucfc-btn-icon">🌐</span>
                     View Site
                 </a>
-                <a href="<?php echo home_url('/kitchen-display'); ?>" class="ucfc-btn ucfc-btn-primary" target="_blank">
+                <a href="<?php echo home_url('/kitchen-display'); ?>" class="ucfc-btn ucfc-btn-primary" target="_blank" rel="noopener">
                     <span class="ucfc-btn-icon">🍳</span>
                     Kitchen Display
                 </a>
@@ -584,13 +583,13 @@ function ucfc_render_modern_dashboard() {
                     <div class="ucfc-action-desc">Add, edit, or remove menu items</div>
                 </a>
                 
-                <a href="<?php echo home_url('/orders-dashboard'); ?>" class="ucfc-action-card">
+                <a href="<?php echo admin_url('admin.php?page=ucfc-orders'); ?>" class="ucfc-action-card">
                     <div class="ucfc-action-icon">📋</div>
                     <div class="ucfc-action-title">View Orders</div>
                     <div class="ucfc-action-desc">Manage and track all orders</div>
                 </a>
                 
-                <a href="<?php echo home_url('/scan-pickup'); ?>" class="ucfc-action-card">
+                <a href="<?php echo home_url('/scan-pickup'); ?>" class="ucfc-action-card" target="_blank">
                     <div class="ucfc-action-icon">📱</div>
                     <div class="ucfc-action-title">QR Scanner</div>
                     <div class="ucfc-action-desc">Scan QR codes for pickup</div>
