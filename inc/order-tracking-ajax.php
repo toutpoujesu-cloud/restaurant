@@ -115,3 +115,64 @@ function ucfc_ajax_get_order_status() {
 }
 add_action('wp_ajax_ucfc_get_order_status', 'ucfc_ajax_get_order_status');
 add_action('wp_ajax_nopriv_ucfc_get_order_status', 'ucfc_ajax_get_order_status');
+
+/**
+ * Get order status history timeline
+ */
+function ucfc_ajax_get_order_history() {
+    check_ajax_referer('ucfc_cart_nonce', 'nonce');
+    
+    $order_id = isset($_POST['order_id']) ? intval($_POST['order_id']) : 0;
+    
+    if (!$order_id) {
+        wp_send_json_error(['message' => 'Order ID required']);
+    }
+    
+    global $wpdb;
+    
+    // Get order to verify access
+    $order = $wpdb->get_row($wpdb->prepare(
+        "SELECT * FROM {$wpdb->prefix}orders WHERE id = %d",
+        $order_id
+    ));
+    
+    if (!$order) {
+        wp_send_json_error(['message' => 'Order not found']);
+    }
+    
+    // Verify user has access (logged in user or guest email matches)
+    $user_id = get_current_user_id();
+    $guest_email = isset($_COOKIE['ucfc_guest_email']) ? sanitize_email($_COOKIE['ucfc_guest_email']) : '';
+    
+    if ($user_id && $order->user_id != $user_id) {
+        wp_send_json_error(['message' => 'Access denied']);
+    } elseif (!$user_id && $order->customer_email !== $guest_email) {
+        wp_send_json_error(['message' => 'Access denied']);
+    }
+    
+    // Get status history
+    $history = $wpdb->get_results($wpdb->prepare(
+        "SELECT * FROM {$wpdb->prefix}order_status_history 
+        WHERE order_id = %d 
+        ORDER BY changed_at ASC",
+        $order_id
+    ));
+    
+    // Format history for display
+    $timeline = [];
+    foreach ($history as $record) {
+        $timeline[] = [
+            'status' => $record->new_status,
+            'timestamp' => date('g:i A', strtotime($record->changed_at)),
+            'full_timestamp' => date('F j, Y \a\t g:i A', strtotime($record->changed_at)),
+            'notes' => $record->notes
+        ];
+    }
+    
+    wp_send_json_success([
+        'timeline' => $timeline,
+        'current_status' => $order->order_status
+    ]);
+}
+add_action('wp_ajax_ucfc_get_order_history', 'ucfc_ajax_get_order_history');
+add_action('wp_ajax_nopriv_ucfc_get_order_history', 'ucfc_ajax_get_order_history');

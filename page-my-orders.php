@@ -177,6 +177,18 @@ if ($user_id) {
                             </div>
                         </div>
                         
+                        <!-- Status Timeline Button -->
+                        <button class="view-timeline-btn" data-order-id="<?php echo $order->id; ?>">
+                            <i class="fas fa-history"></i> View Status History
+                        </button>
+                        
+                        <!-- Status Timeline (hidden by default) -->
+                        <div class="status-timeline" id="timeline-<?php echo $order->id; ?>" style="display: none;">
+                            <div class="timeline-loading">
+                                <i class="fas fa-spinner fa-spin"></i> Loading timeline...
+                            </div>
+                        </div>
+                        
                         <!-- Estimated Time -->
                         <?php if (in_array($order->order_status, ['pending', 'confirmed', 'preparing']) && $minutes_remaining > 0): ?>
                             <div class="order-eta">
@@ -548,6 +560,183 @@ if ($user_id) {
     flex: 1;
 }
 
+/* Timeline Styles */
+.view-timeline-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.view-timeline-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.status-timeline {
+    margin-top: 15px;
+    padding: 20px;
+    background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.timeline-items {
+    position: relative;
+    padding-left: 50px;
+}
+
+.timeline-items::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    background: linear-gradient(to bottom, #d92027 0%, #ff6b6b 50%, #51cf66 100%);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 25px;
+    animation: fadeInUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: 3px solid #d92027;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.timeline-item.active .timeline-marker {
+    background: linear-gradient(135deg, #d92027 0%, #ff6b6b 100%);
+    border-color: #d92027;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(217, 32, 39, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(217, 32, 39, 0);
+    }
+}
+
+.timeline-marker i {
+    color: #d92027;
+    font-size: 16px;
+}
+
+.timeline-item.active .timeline-marker i {
+    color: white;
+}
+
+.timeline-content {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-left: 3px solid #d92027;
+}
+
+.timeline-item.active .timeline-content {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+    border-left: 3px solid #d92027;
+    box-shadow: 0 4px 12px rgba(217, 32, 39, 0.15);
+}
+
+.timeline-content h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.timeline-time {
+    margin: 0 0 4px 0;
+    color: #d92027;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.timeline-full-time {
+    margin: 0 0 8px 0;
+    color: #888;
+    font-size: 12px;
+}
+
+.timeline-notes {
+    margin: 8px 0 0 0;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    color: #666;
+    font-size: 13px;
+    font-style: italic;
+}
+
+.timeline-loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.timeline-loading i {
+    font-size: 32px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 @media (max-width: 768px) {
     .page-header {
         flex-direction: column;
@@ -599,6 +788,88 @@ jQuery(document).ready(function($) {
                 }
             });
         }
+    });
+    
+    // View timeline button
+    $('.view-timeline-btn').on('click', function() {
+        const orderId = $(this).data('order-id');
+        const $timeline = $('#timeline-' + orderId);
+        const $btn = $(this);
+        
+        // Toggle timeline visibility
+        if ($timeline.is(':visible')) {
+            $timeline.slideUp(300);
+            $btn.html('<i class="fas fa-history"></i> View Status History');
+            return;
+        }
+        
+        // Show timeline
+        $timeline.slideDown(300);
+        $btn.html('<i class="fas fa-times"></i> Hide Status History');
+        
+        // Load timeline if not loaded yet
+        if ($timeline.data('loaded')) {
+            return;
+        }
+        
+        $.ajax({
+            url: ucfcCart.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'ucfc_get_order_history',
+                nonce: ucfcCart.nonce,
+                order_id: orderId
+            },
+            success: function(response) {
+                if (response.success && response.data.timeline.length > 0) {
+                    let html = '<div class="timeline-items">';
+                    
+                    response.data.timeline.forEach(function(item, index) {
+                        const isLast = index === response.data.timeline.length - 1;
+                        const statusIcons = {
+                            'pending': 'fa-clock',
+                            'confirmed': 'fa-check',
+                            'preparing': 'fa-fire',
+                            'ready': 'fa-check-double',
+                            'completed': 'fa-flag-checkered',
+                            'cancelled': 'fa-times-circle'
+                        };
+                        const statusLabels = {
+                            'pending': 'Order Received',
+                            'confirmed': 'Order Confirmed',
+                            'preparing': 'Preparing Your Order',
+                            'ready': 'Order Ready',
+                            'completed': 'Order Completed',
+                            'cancelled': 'Order Cancelled'
+                        };
+                        const icon = statusIcons[item.status] || 'fa-circle';
+                        const label = statusLabels[item.status] || item.status;
+                        
+                        html += '<div class="timeline-item' + (isLast ? ' active' : '') + '">';
+                        html += '    <div class="timeline-marker">';
+                        html += '        <i class="fas ' + icon + '"></i>';
+                        html += '    </div>';
+                        html += '    <div class="timeline-content">';
+                        html += '        <h4>' + label + '</h4>';
+                        html += '        <p class="timeline-time">' + item.timestamp + '</p>';
+                        html += '        <p class="timeline-full-time">' + item.full_timestamp + '</p>';
+                        if (item.notes) {
+                            html += '        <p class="timeline-notes">' + item.notes + '</p>';
+                        }
+                        html += '    </div>';
+                        html += '</div>';
+                    });
+                    
+                    html += '</div>';
+                    $timeline.html(html).data('loaded', true);
+                } else {
+                    $timeline.html('<p style="text-align: center; color: #666;">No status history available</p>');
+                }
+            },
+            error: function() {
+                $timeline.html('<p style="text-align: center; color: #d92027;">Error loading timeline</p>');
+            }
+        });
     });
     
     // Auto-refresh orders every 30 seconds to update status
