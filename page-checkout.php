@@ -191,6 +191,19 @@ if (empty($items)) {
                                     <i class="fas fa-info-circle"></i>
                                     <p>Payment integration coming soon. For now, your order will be marked as pending payment.</p>
                                 </div>
+                                
+                                <!-- Stripe Payment Form (shown when Stripe is configured) -->
+                                <div id="stripe-payment-form" style="display: none;">
+                                    <div class="form-group">
+                                        <label>Card Information</label>
+                                        <div id="card-element" class="stripe-card-element"></div>
+                                        <div id="card-errors" role="alert"></div>
+                                    </div>
+                                    <div class="secure-badge" style="margin-top: 15px;">
+                                        <i class="fas fa-lock"></i>
+                                        <span>Secured by Stripe • Your card details are encrypted</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
@@ -574,6 +587,47 @@ if (empty($items)) {
     font-size: 1.5rem;
 }
 
+/* Stripe Elements Styling */
+.stripe-card-element {
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    transition: border-color 0.3s;
+}
+
+.stripe-card-element:hover {
+    border-color: #d92027;
+}
+
+#card-errors {
+    margin-top: 10px;
+    color: #fa755a;
+    font-size: 0.9rem;
+}
+
+#card-errors .success {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+#card-errors .processing {
+    color: #2196f3;
+    font-weight: 600;
+}
+
+.secure-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.secure-badge i {
+    color: #4caf50;
+}
+
 /* Order Summary Sidebar */
 .order-summary-card {
     background: white;
@@ -770,36 +824,69 @@ jQuery(document).ready(function($) {
         if (!validateStep(2)) return;
         
         const btn = $('#place-order-btn');
+        const originalText = btn.html();
         btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Processing...');
         
+        // Collect form data
+        const formData = {
+            order_type: $('input[name="order_type"]:checked').val(),
+            customer_name: $('#customer_name').val(),
+            customer_email: $('#customer_email').val(),
+            customer_phone: $('#customer_phone').val(),
+            customer_address: $('#customer_address').val(),
+            special_instructions: $('#special_instructions').val(),
+            payment_method: $('input[name="payment_method"]:checked').val()
+        };
+        
+        // Check if Stripe payment is needed
+        const paymentMethod = formData.payment_method;
+        const needsStripePayment = paymentMethod === 'credit_card' && 
+                                   typeof window.StripePaymentHandler !== 'undefined';
+        
+        if (needsStripePayment) {
+            // Process Stripe payment first
+            btn.html('<i class="fas fa-spinner fa-spin"></i> Processing payment...');
+            
+            window.StripePaymentHandler.processPayment(formData, function(error, updatedFormData) {
+                if (error) {
+                    alert('Payment failed: ' + error);
+                    btn.prop('disabled', false).html(originalText);
+                } else {
+                    // Payment successful, create order
+                    const finalData = updatedFormData || formData;
+                    btn.html('<i class="fas fa-spinner fa-spin"></i> Creating order...');
+                    submitOrder(finalData, btn, originalText);
+                }
+            });
+        } else {
+            // No Stripe payment needed (cash or Stripe not configured)
+            submitOrder(formData, btn, originalText);
+        }
+    });
+    
+    // Submit order to backend
+    function submitOrder(formData, btn, originalText) {
         $.ajax({
             url: ucfcCart.ajax_url,
             type: 'POST',
-            data: {
+            data: Object.assign({
                 action: 'ucfc_process_checkout',
-                nonce: ucfcCart.nonce,
-                order_type: $('input[name="order_type"]:checked').val(),
-                customer_name: $('#customer_name').val(),
-                customer_email: $('#customer_email').val(),
-                customer_phone: $('#customer_phone').val(),
-                customer_address: $('#customer_address').val(),
-                special_instructions: $('#special_instructions').val(),
-                payment_method: $('input[name="payment_method"]:checked').val()
-            },
+                nonce: ucfcCart.nonce
+            }, formData),
             success: function(response) {
                 if (response.success) {
                     window.location.href = '<?php echo home_url('/order-confirmation'); ?>?order=' + response.data.order_number;
                 } else {
                     alert('Error: ' + response.data.message);
-                    btn.prop('disabled', false).html('<i class="fas fa-check-circle"></i> Place Order');
+                    btn.prop('disabled', false).html(originalText);
                 }
             },
             error: function() {
                 alert('An error occurred. Please try again.');
-                btn.prop('disabled', false).html('<i class="fas fa-check-circle"></i> Place Order');
+                btn.prop('disabled', false).html(originalText);
             }
         });
-    });
+    }
 });
 </script>
 

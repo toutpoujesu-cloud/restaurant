@@ -50,6 +50,9 @@ require_once get_template_directory() . '/inc/cart-ajax-handlers.php';
 require_once get_template_directory() . '/inc/orders-dashboard.php';
 require_once get_template_directory() . '/inc/checkout-process.php';
 
+// Include Payment System
+require_once get_template_directory() . '/inc/payment-gateway.php';
+
 // Include AI System Files
 require_once get_template_directory() . '/inc/ai-assistant-settings.php';
 require_once get_template_directory() . '/inc/ai-conversation-logger.php';

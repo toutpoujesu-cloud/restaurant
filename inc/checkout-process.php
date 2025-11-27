@@ -82,6 +82,23 @@ function ucfc_ajax_process_checkout() {
     // Get user ID if logged in
     $user_id = is_user_logged_in() ? get_current_user_id() : null;
     
+    // Get payment intent ID if provided (from Stripe payment)
+    $payment_intent_id = isset($_POST['payment_intent_id']) ? sanitize_text_field($_POST['payment_intent_id']) : '';
+    
+    // Determine payment status
+    $payment_status = 'pending';
+    if (!empty($payment_intent_id)) {
+        $payment_status = 'paid'; // Stripe payment confirmed
+    } elseif ($payment_method === 'cash') {
+        $payment_status = 'pending'; // Will be paid on delivery/pickup
+    }
+    
+    // Append payment intent ID to special instructions for webhook lookup
+    $special_instructions_with_payment = $special_instructions;
+    if (!empty($payment_intent_id)) {
+        $special_instructions_with_payment .= ' [Payment Intent: ' . $payment_intent_id . ']';
+    }
+    
     // Insert order
     $order_data = [
         'order_number' => $order_number,
@@ -92,13 +109,13 @@ function ucfc_ajax_process_checkout() {
         'customer_address' => $customer_address,
         'order_type' => $order_type,
         'payment_method' => $payment_method,
-        'payment_status' => 'pending',
+        'payment_status' => $payment_status,
         'order_status' => 'pending',
         'subtotal' => $subtotal,
         'tax' => $tax,
         'delivery_fee' => $delivery_fee,
         'total' => $total,
-        'special_instructions' => $special_instructions,
+        'special_instructions' => $special_instructions_with_payment,
         'estimated_time' => ($order_type === 'delivery') ? 40 : 18
     ];
     
