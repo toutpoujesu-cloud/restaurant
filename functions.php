@@ -49,8 +49,8 @@ add_action('wp_enqueue_scripts', 'uncle_chans_scripts');
 // Include Restaurant System Files
 require_once get_template_directory() . '/inc/custom-post-types.php';
 require_once get_template_directory() . '/inc/meta-boxes.php';
-require_once get_template_directory() . '/inc/admin-settings.php';
-require_once get_template_directory() . '/inc/admin-dashboard.php';
+require_once get_template_directory() . '/inc/modern-dashboard.php';  // NEW: Modern unified dashboard
+require_once get_template_directory() . '/inc/settings-panel.php';    // NEW: Modern settings panel
 require_once get_template_directory() . '/inc/menu-builder.php';
 require_once get_template_directory() . '/inc/menu-dashboard.php';
 
