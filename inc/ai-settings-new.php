@@ -12,6 +12,15 @@ if (!defined('ABSPATH')) {
 add_action('wp_ajax_save_ai_settings', 'restaurant_save_ai_settings');
 add_action('wp_ajax_nopriv_save_ai_settings', 'restaurant_save_ai_settings');
 
+// Handle file upload
+add_action('wp_ajax_upload_kb_file', 'restaurant_upload_kb_file');
+
+// Handle category creation
+add_action('wp_ajax_add_kb_category', 'restaurant_add_kb_category');
+
+// Handle file deletion
+add_action('wp_ajax_delete_kb_file', 'restaurant_delete_kb_file');
+
 function restaurant_save_ai_settings() {
     if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ai_settings_nonce')) {
         wp_send_json_error(['message' => 'Security check failed']);
@@ -40,12 +49,144 @@ function restaurant_save_ai_settings() {
 }
 
 /**
+ * Handle knowledge base file upload
+ */
+function restaurant_upload_kb_file() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ai_settings_nonce')) {
+        wp_send_json_error(['message' => 'Security check failed']);
+    }
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(['message' => 'Insufficient permissions']);
+    }
+
+    if (empty($_FILES['file'])) {
+        wp_send_json_error(['message' => 'No file provided']);
+    }
+
+    $category = sanitize_text_field($_POST['category'] ?? 'general');
+    $uploaded_file = $_FILES['file'];
+
+    // Validate file
+    $allowed_types = ['txt', 'pdf', 'csv', 'doc', 'docx'];
+    $file_type = strtolower(pathinfo($uploaded_file['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($file_type, $allowed_types)) {
+        wp_send_json_error(['message' => 'File type not allowed']);
+    }
+
+    if ($uploaded_file['size'] > 10 * 1024 * 1024) { // 10MB limit
+        wp_send_json_error(['message' => 'File too large']);
+    }
+
+    // Create upload directory
+    $upload_dir = wp_upload_dir();
+    $kb_dir = $upload_dir['basedir'] . '/restaurant-kb/';
+    if (!is_dir($kb_dir)) {
+        wp_mkdir_p($kb_dir);
+    }
+
+    // Move file
+    $filename = sanitize_file_name($uploaded_file['name']);
+    $file_path = $kb_dir . time() . '_' . $filename;
+
+    if (!move_uploaded_file($uploaded_file['tmp_name'], $file_path)) {
+        wp_send_json_error(['message' => 'Failed to upload file']);
+    }
+
+    // Index document with RAG engine
+    global $restaurant_rag_engine;
+    if ($restaurant_rag_engine) {
+        $result = $restaurant_rag_engine->upload_document($file_path, $category, $filename);
+        
+        if (!$result['success']) {
+            wp_send_json_error(['message' => $result['error']]);
+        }
+
+        wp_send_json_success([
+            'message' => 'File uploaded and indexed successfully',
+            'document_id' => $result['document_id'],
+            'filename' => $filename,
+            'chunks' => $result['chunks']
+        ]);
+    }
+
+    wp_send_json_error(['message' => 'RAG engine not initialized']);
+}
+
+/**
+ * Handle category creation
+ */
+function restaurant_add_kb_category() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ai_settings_nonce')) {
+        wp_send_json_error(['message' => 'Security check failed']);
+    }
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(['message' => 'Insufficient permissions']);
+    }
+
+    $name = sanitize_text_field($_POST['name'] ?? '');
+    $description = sanitize_text_field($_POST['description'] ?? '');
+    $icon = sanitize_text_field($_POST['icon'] ?? '📁');
+
+    if (empty($name)) {
+        wp_send_json_error(['message' => 'Category name required']);
+    }
+
+    global $restaurant_rag_engine;
+    if ($restaurant_rag_engine) {
+        $category_id = $restaurant_rag_engine->add_category($name, $description, $icon);
+        wp_send_json_success([
+            'message' => 'Category created successfully',
+            'category_id' => $category_id
+        ]);
+    }
+
+    wp_send_json_error(['message' => 'RAG engine not initialized']);
+}
+
+/**
+ * Handle file deletion
+ */
+function restaurant_delete_kb_file() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ai_settings_nonce')) {
+        wp_send_json_error(['message' => 'Security check failed']);
+    }
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(['message' => 'Insufficient permissions']);
+    }
+
+    $document_id = intval($_POST['document_id'] ?? 0);
+
+    if (!$document_id) {
+        wp_send_json_error(['message' => 'Invalid document ID']);
+    }
+
+    global $restaurant_rag_engine;
+    if ($restaurant_rag_engine) {
+        $result = $restaurant_rag_engine->delete_document($document_id);
+        
+        if ($result) {
+            wp_send_json_success(['message' => 'Document deleted successfully']);
+        }
+    }
+
+    wp_send_json_error(['message' => 'Failed to delete document']);
+}
+
+/**
  * Render AI Settings Page
  */
 function restaurant_render_ai_settings_tab() {
     $llm_provider = get_option('restaurant_llm_provider', 'claude');
     $api_keys = get_option('restaurant_api_keys', []);
     $nonce = wp_create_nonce('ai_settings_nonce');
+
+    // Get RAG engine for categories and documents
+    global $restaurant_rag_engine;
+    $categories = $restaurant_rag_engine ? $restaurant_rag_engine->get_categories() : [];
     ?>
 
     <style>
@@ -287,10 +428,64 @@ function restaurant_render_ai_settings_tab() {
 
         <!-- Save Button -->
         <button class="submit-btn" id="save-btn">💾 Save AI Settings</button>
+
+        <!-- Knowledge Base Section -->
+        <div class="ai-section" style="margin-top: 40px;">
+            <h3>📚 Knowledge Base Management</h3>
+            <p style="color: #666; margin: 10px 0 20px 0;">Upload documents for AI to learn from (PDF, TXT, CSV, DOCX)</p>
+
+            <!-- Add New Category -->
+            <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 6px;">
+                <h4 style="margin-top: 0;">Create New Category</h4>
+                <div class="form-group">
+                    <label class="form-label">Category Name</label>
+                    <input type="text" id="new_category_name" class="form-input" placeholder="e.g., Menu, Policies, FAQs">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description (Optional)</label>
+                    <input type="text" id="new_category_desc" class="form-input" placeholder="Brief description">
+                </div>
+                <button class="submit-btn" id="add-category-btn" style="background: #10B981;">➕ Create Category</button>
+            </div>
+
+            <!-- Categories & Documents -->
+            <div id="kb-categories-container">
+                <?php if (!empty($categories)): ?>
+                    <?php foreach ($categories as $cat): ?>
+                        <div class="kb-category" style="margin-bottom: 25px; padding: 20px; border: 2px solid #ddd; border-radius: 6px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <h4 style="margin: 0;">📁 <?php echo esc_html($cat->name); ?></h4>
+                                <span style="color: #999; font-size: 12px;">ID: <?php echo $cat->id; ?></span>
+                            </div>
+                            <?php if ($cat->description): ?>
+                                <p style="color: #666; margin: 0 0 15px 0;"><?php echo esc_html($cat->description); ?></p>
+                            <?php endif; ?>
+
+                            <!-- File Upload for Category -->
+                            <div style="margin-bottom: 15px; padding: 15px; background: #f5f5f5; border-radius: 4px;">
+                                <label class="form-label">Upload Files to <?php echo esc_html($cat->name); ?></label>
+                                <input type="file" class="kb-file-input" data-category="<?php echo $cat->id; ?>" data-category-name="<?php echo esc_attr($cat->name); ?>" multiple accept=".pdf,.txt,.csv,.doc,.docx">
+                                <div class="upload-status" data-category="<?php echo $cat->id; ?>" style="margin-top: 10px;"></div>
+                            </div>
+
+                            <!-- Files in Category -->
+                            <div class="kb-files" data-category="<?php echo $cat->id; ?>">
+                                <p style="color: #999; font-size: 13px;">Loading documents...</p>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div style="padding: 30px; text-align: center; background: #f5f5f5; border-radius: 6px;">
+                        <p style="color: #999;">No categories created yet. Create one above to get started.</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
     <script>
     jQuery(document).ready(function($) {
+        // Select provider
         function selectProvider(provider) {
             $('input[name="llm_provider"][value="' + provider + '"]').prop('checked', true);
             $('.llm-card').removeClass('selected');
@@ -333,6 +528,87 @@ function restaurant_render_ai_settings_tab() {
                 }
             });
         });
+
+        // Handle category creation
+        $('#add-category-btn').click(function() {
+            var name = $('#new_category_name').val().trim();
+            var desc = $('#new_category_desc').val().trim();
+
+            if (!name) {
+                alert('Please enter a category name');
+                return;
+            }
+
+            var formData = {
+                action: 'add_kb_category',
+                nonce: '<?php echo $nonce; ?>',
+                name: name,
+                description: desc,
+                icon: '📁'
+            };
+
+            $.post('<?php echo admin_url("admin-ajax.php"); ?>', formData, function(response) {
+                if (response.success) {
+                    location.reload();
+                } else {
+                    alert('Error: ' + response.data.message);
+                }
+            });
+        });
+
+        // Handle file upload
+        $('.kb-file-input').on('change', function() {
+            var category = $(this).data('category');
+            var categoryName = $(this).data('category-name');
+            var files = this.files;
+            var $status = $('.upload-status[data-category="' + category + '"]');
+
+            if (files.length === 0) return;
+
+            for (var i = 0; i < files.length; i++) {
+                uploadFile(files[i], category, categoryName, $status);
+            }
+        });
+
+        function uploadFile(file, category, categoryName, $status) {
+            var formData = new FormData();
+            formData.append('action', 'upload_kb_file');
+            formData.append('nonce', '<?php echo $nonce; ?>');
+            formData.append('file', file);
+            formData.append('category', categoryName);
+
+            $status.html('⏳ Uploading ' + file.name + '...');
+
+            $.ajax({
+                url: '<?php echo admin_url("admin-ajax.php"); ?>',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.success) {
+                        $status.html('✓ ' + file.name + ' uploaded and indexed (' + response.data.chunks + ' chunks)');
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        $status.html('✗ Error: ' + response.data.message);
+                    }
+                },
+                error: function() {
+                    $status.html('✗ Upload failed');
+                }
+            });
+        }
+
+        // Load documents for each category
+        function loadCategoryDocuments() {
+            // This would load documents from server
+            // For now, just show placeholder
+            $('.kb-files').html('<p style="color: #999; font-size: 13px;">Documents will appear here after upload</p>');
+        }
+
+        loadCategoryDocuments();
     });
     </script>
 
