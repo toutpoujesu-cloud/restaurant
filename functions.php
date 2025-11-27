@@ -51,7 +51,7 @@ require_once get_template_directory() . '/inc/custom-post-types.php';
 require_once get_template_directory() . '/inc/meta-boxes.php';
 
 // NEW: Include AI Settings FIRST before modern-dashboard
-require_once get_template_directory() . '/inc/ai-settings.php';
+require_once get_template_directory() . '/inc/ai-settings-new.php';
 require_once get_template_directory() . '/inc/ai-agent-framework.php';
 require_once get_template_directory() . '/inc/ai-frontend-widget.php';
 

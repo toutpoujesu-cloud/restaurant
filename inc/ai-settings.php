@@ -100,9 +100,6 @@ function restaurant_process_knowledge_files($files) {
     return $knowledge_base;
 }
 
-/**
- * Render AI Settings Tab HTML
- */
 function restaurant_render_ai_settings_tab() {
     $llm_provider = get_option('restaurant_llm_provider', 'claude');
     $api_keys = get_option('restaurant_api_keys', []);
@@ -111,17 +108,33 @@ function restaurant_render_ai_settings_tab() {
     ?>
     
     <style>
-        /* WordPress Admin Wrapper Styles */
-        #wpcontent {
-            background: #F3F4F6;
+        /* AI Settings Styles */
+        .ai-settings-container {
+            max-width: 1200px;
+            margin: 20px 0;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .wp-heading-inline {
-            color: #1A1A1D;
+        .ai-settings-header {
+            margin-bottom: 30px;
+        }
+        
+        .ai-section-title {
+            font-size: 2rem;
             font-weight: 700;
+            color: #1A1A1D;
+            margin: 0 0 10px 0;
         }
         
-        /* Main Container */
+        .ai-section-subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin: 0;
+        }
+    </style>
     
     <div class="ai-settings-container">
         <!-- Header Section -->
