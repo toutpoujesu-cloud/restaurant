@@ -172,11 +172,27 @@ function ucfc_ajax_process_checkout() {
         ['%d', '%s', '%s', '%d', '%s']
     );
     
-    // Send confirmation email
-    ucfc_send_order_confirmation_email($order_id, $order_number, $customer_email, $customer_name);
+    // Get full order object for email
+    $order = $wpdb->get_row($wpdb->prepare(
+        "SELECT * FROM {$wpdb->prefix}orders WHERE id = %d",
+        $order_id
+    ));
     
-    // Send notification to restaurant
-    ucfc_send_order_notification_to_staff($order_id, $order_number);
+    // Send enhanced confirmation email
+    if (function_exists('ucfc_send_enhanced_order_confirmation')) {
+        ucfc_send_enhanced_order_confirmation($order_id, $order);
+    } else {
+        // Fallback to basic email
+        ucfc_send_order_confirmation_email($order_id, $order_number, $customer_email, $customer_name);
+    }
+    
+    // Send enhanced notification to restaurant
+    if (function_exists('ucfc_send_enhanced_staff_notification')) {
+        ucfc_send_enhanced_staff_notification($order_id, $order);
+    } else {
+        // Fallback to basic email
+        ucfc_send_order_notification_to_staff($order_id, $order_number);
+    }
     
     // Clear cart
     $cart->clear_cart();
