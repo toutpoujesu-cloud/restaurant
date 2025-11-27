@@ -10,6 +10,16 @@ function uncle_chans_setup() {
 }
 add_action('after_setup_theme', 'uncle_chans_setup');
 
+// Add custom cron schedule for SMS processing
+function ucfc_add_cron_schedules($schedules) {
+    $schedules['five_minutes'] = array(
+        'interval' => 300, // 5 minutes in seconds
+        'display' => __('Every 5 Minutes')
+    );
+    return $schedules;
+}
+add_filter('cron_schedules', 'ucfc_add_cron_schedules');
+
 function uncle_chans_scripts() {
     // Styles
     wp_enqueue_style('uncle-chans-style', get_stylesheet_uri());
@@ -58,6 +68,9 @@ require_once get_template_directory() . '/inc/email-templates.php';
 
 // Include Order Tracking
 require_once get_template_directory() . '/inc/order-tracking-ajax.php';
+
+// Include SMS Notifications
+require_once get_template_directory() . '/inc/sms-notifications.php';
 
 // Include AI System Files
 require_once get_template_directory() . '/inc/ai-assistant-settings.php';

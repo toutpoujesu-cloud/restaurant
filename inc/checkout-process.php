@@ -194,6 +194,9 @@ function ucfc_ajax_process_checkout() {
         ucfc_send_order_notification_to_staff($order_id, $order_number);
     }
     
+    // Trigger SMS notification hook
+    do_action('ucfc_order_created', $order_id, $order);
+    
     // Clear cart
     $cart->clear_cart();
     

@@ -390,6 +390,9 @@ function ucfc_ajax_update_order_status() {
         ['%d', '%s', '%s', '%d']
     );
     
+    // Trigger SMS notification hook for status change
+    do_action('ucfc_order_status_changed', $order_id, $new_status, $old_status);
+    
     wp_send_json_success(['message' => 'Status updated']);
 }
 add_action('wp_ajax_ucfc_update_order_status', 'ucfc_ajax_update_order_status');
