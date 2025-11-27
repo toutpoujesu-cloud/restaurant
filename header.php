@@ -74,9 +74,77 @@
             <!-- Shopping Cart -->
             <div class="cart-button" id="cartIcon" role="button" aria-label="Shopping Cart">
                 <div class="cart-icon-wrapper">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-badge">0</span>
-                    <div class="cart-pulse"></div>
+                    <a href="<?php echo home_url('/cart'); ?>" class="cart-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <?php
+                        $cart = ucfc_get_cart();
+                        $cart_count = $cart->get_item_count();
+                        ?>
+                        <span class="cart-count-badge" style="<?php echo $cart_count > 0 ? '' : 'display:none;'; ?>">
+                            <?php echo $cart_count; ?>
+                        </span>
+                        <div class="cart-pulse"></div>
+                    </a>
+                    
+                    <!-- Mini Cart Dropdown -->
+                    <div class="mini-cart-dropdown">
+                        <div class="mini-cart-header">
+                            <h4>Shopping Cart</h4>
+                            <span class="mini-cart-count"><?php echo $cart_count; ?> <?php echo $cart_count == 1 ? 'item' : 'items'; ?></span>
+                        </div>
+                        
+                        <?php 
+                        $cart_items = $cart->get_cart();
+                        $cart_totals = $cart->get_totals();
+                        ?>
+                        
+                        <?php if (!empty($cart_items)): ?>
+                            <div class="mini-cart-items">
+                                <?php foreach (array_slice($cart_items, 0, 3) as $item): ?>
+                                    <?php $thumbnail = get_the_post_thumbnail_url($item->product_id, 'thumbnail'); ?>
+                                    <div class="mini-cart-item">
+                                        <div class="mini-item-image">
+                                            <?php if ($thumbnail): ?>
+                                                <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($item->product_name); ?>">
+                                            <?php else: ?>
+                                                <i class="fas fa-utensils"></i>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="mini-item-details">
+                                            <h5><?php echo esc_html($item->product_name); ?></h5>
+                                            <span class="mini-item-qty"><?php echo $item->quantity; ?>x $<?php echo number_format($item->price, 2); ?></span>
+                                        </div>
+                                        <div class="mini-item-subtotal">
+                                            $<?php echo number_format($item->subtotal, 2); ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                                
+                                <?php if (count($cart_items) > 3): ?>
+                                    <div class="mini-cart-more">
+                                        + <?php echo count($cart_items) - 3; ?> more item<?php echo (count($cart_items) - 3) > 1 ? 's' : ''; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <div class="mini-cart-footer">
+                                <div class="mini-cart-total">
+                                    <span>Total:</span>
+                                    <strong>$<?php echo $cart_totals['total']; ?></strong>
+                                </div>
+                                <div class="mini-cart-actions">
+                                    <a href="<?php echo home_url('/cart'); ?>" class="btn btn-secondary btn-sm">View Cart</a>
+                                    <a href="<?php echo home_url('/checkout'); ?>" class="btn btn-primary btn-sm">Checkout</a>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <div class="mini-cart-empty">
+                                <i class="fas fa-shopping-cart"></i>
+                                <p>Your cart is empty</p>
+                                <a href="<?php echo home_url('/menu'); ?>" class="btn btn-primary btn-sm">Browse Menu</a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
             
