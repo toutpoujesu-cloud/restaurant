@@ -90,5 +90,9 @@ require_once get_template_directory() . '/inc/ai-cache.php';
 require_once get_template_directory() . '/inc/ai-rate-limiter.php';
 require_once get_template_directory() . '/inc/ai-system-check.php';
 
-// Legacy settings removed - now using comprehensive AI Assistant Settings
-// Access via: Restaurant → AI Assistant in WordPress Admin
+// NEW: Comprehensive AI Settings with LangChain & LlamaIndex
+require_once get_template_directory() . '/inc/ai-settings.php';
+require_once get_template_directory() . '/inc/ai-agent-framework.php';
+require_once get_template_directory() . '/inc/ai-frontend-widget.php';
+
+// Access via: Restaurant → AI Settings in WordPress Admin
