@@ -330,6 +330,10 @@ function ucfc_render_modern_dashboard() {
             margin-bottom: 40px;
         }
         
+        .ucfc-chart-container canvas {
+            max-height: 300px !important;
+        }
+        
         .ucfc-chart-header {
             display: flex;
             justify-content: space-between;
@@ -627,7 +631,7 @@ function ucfc_render_modern_dashboard() {
                         <button class="ucfc-filter-btn">90 Days</button>
                     </div>
                 </div>
-                <canvas id="ucfc-sales-chart" height="300"></canvas>
+                <canvas id="ucfc-sales-chart" height="200"></canvas>
             </div>
             
             <!-- Recent Activity -->
@@ -718,6 +722,7 @@ function ucfc_render_modern_dashboard() {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    aspectRatio: 2,
                     plugins: {
                         legend: {
                             display: false
