@@ -47,6 +47,7 @@ require_once get_template_directory() . '/inc/menu-dashboard.php';
 // Include Cart System Files
 require_once get_template_directory() . '/inc/cart-system.php';
 require_once get_template_directory() . '/inc/cart-ajax-handlers.php';
+require_once get_template_directory() . '/inc/orders-dashboard.php';
 
 // Include AI System Files
 require_once get_template_directory() . '/inc/ai-assistant-settings.php';
