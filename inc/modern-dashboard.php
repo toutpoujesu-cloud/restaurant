@@ -426,8 +426,8 @@ function ucfc_render_modern_dashboard() {
         /* Action Cards */
         .action-card {
             position: relative;
-            padding: 2rem;
-            min-height: 200px;
+            padding: 1.5rem;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFB 100%);
