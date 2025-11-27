@@ -56,6 +56,9 @@ require_once get_template_directory() . '/inc/payment-gateway.php';
 // Include Enhanced Email Templates
 require_once get_template_directory() . '/inc/email-templates.php';
 
+// Include Order Tracking
+require_once get_template_directory() . '/inc/order-tracking-ajax.php';
+
 // Include AI System Files
 require_once get_template_directory() . '/inc/ai-assistant-settings.php';
 require_once get_template_directory() . '/inc/ai-conversation-logger.php';

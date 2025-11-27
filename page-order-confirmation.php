@@ -186,7 +186,10 @@ $items = $wpdb->get_results($wpdb->prepare(
             
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <a href="<?php echo home_url(); ?>" class="btn btn-primary">
+                <a href="<?php echo home_url('/my-orders'); ?>" class="btn btn-primary">
+                    <i class="fas fa-list"></i> View All Orders
+                </a>
+                <a href="<?php echo home_url(); ?>" class="btn btn-secondary">
                     <i class="fas fa-home"></i> Back to Home
                 </a>
                 <button onclick="window.print();" class="btn btn-secondary">
@@ -197,6 +200,39 @@ $items = $wpdb->get_results($wpdb->prepare(
         
     </div>
 </div>
+
+<script>
+jQuery(document).ready(function($) {
+    // Real-time order status updates
+    const orderNumber = '<?php echo esc_js($order->order_number); ?>';
+    const currentStatus = '<?php echo esc_js($order->order_status); ?>';
+    
+    // Only poll for updates if order is still in progress
+    if (['pending', 'confirmed', 'preparing', 'ready'].includes(currentStatus)) {
+        setInterval(function() {
+            $.ajax({
+                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                type: 'POST',
+                data: {
+                    action: 'ucfc_get_order_status',
+                    nonce: '<?php echo wp_create_nonce('ucfc_cart_nonce'); ?>',
+                    order_number: orderNumber
+                },
+                success: function(response) {
+                    if (response.success) {
+                        const newStatus = response.data.order_status;
+                        
+                        // Reload page if status changed
+                        if (newStatus !== currentStatus) {
+                            location.reload();
+                        }
+                    }
+                }
+            });
+        }, 15000); // Check every 15 seconds
+    }
+});
+</script>
 
 <style>
 .order-confirmation-page {

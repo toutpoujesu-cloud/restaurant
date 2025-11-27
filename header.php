@@ -66,10 +66,16 @@
         <!-- CTA Section - Premium Actions -->
         <div class="nav-actions">
             <!-- Military Badge -->
-            <div class="military-indicator">
+            <div class="military-badge">
                 <i class="fas fa-shield-alt"></i>
                 <span><?php echo get_option('uncle_chans_military_discount', '15'); ?>% OFF</span>
             </div>
+            
+            <!-- My Orders -->
+            <a href="<?php echo home_url('/my-orders'); ?>" class="my-orders-link" title="My Orders">
+                <i class="fas fa-receipt"></i>
+                <span class="orders-label">Orders</span>
+            </a>
             
             <!-- Shopping Cart -->
             <div class="cart-button" id="cartIcon" role="button" aria-label="Shopping Cart">

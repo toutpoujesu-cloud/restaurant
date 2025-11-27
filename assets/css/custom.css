@@ -368,6 +368,46 @@ body {
     color: var(--color-primary);
 }
 
+/* My Orders Link */
+.my-orders-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s;
+    margin-right: 15px;
+}
+
+.my-orders-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+    color: white;
+}
+
+.my-orders-link i {
+    font-size: 1.2rem;
+}
+
+.orders-label {
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .orders-label {
+        display: none;
+    }
+    
+    .my-orders-link {
+        padding: 10px 15px;
+        margin-right: 10px;
+    }
+}
+
 .cart-link {
     position: relative;
     display: flex;
