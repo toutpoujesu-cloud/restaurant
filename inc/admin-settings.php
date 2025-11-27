@@ -67,6 +67,17 @@ function ucfc_register_settings_menu() {
         'restaurant-delivery',
         'ucfc_delivery_settings_page_html'
     );
+    
+    // Kitchen Display System - Direct link to frontend page
+    add_submenu_page(
+        'restaurant-settings',
+        __('Kitchen Display', 'uncle-chans'),
+        __('🍳 Kitchen Display', 'uncle-chans'),
+        'manage_options',
+        home_url('/kitchen-display'),
+        '',
+        99
+    );
 }
 add_action('admin_menu', 'ucfc_register_settings_menu');
 
