@@ -109,20 +109,20 @@ function ucfc_render_modern_dashboard() {
             background: var(--off-white);
             padding: 0;
             margin: -20px -20px -20px -42px;
-            width: calc(100% + 62px);
-            max-width: 100vw;
+            width: calc(100% + 42px);
+            max-width: calc(100vw - 160px);
             overflow-x: hidden;
             min-height: 100vh;
         }
         
         /* Section Headers */
         .section-header {
-            margin: 2rem 1.5rem 1.5rem;
+            margin: 2rem 0.5rem 1.5rem;
         }
         
         .section-header h2 {
             font-family: var(--font-display);
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--dark-charcoal);
             margin: 0;
@@ -131,10 +131,10 @@ function ucfc_render_modern_dashboard() {
         /* Header Section */
         .dashboard-header {
             background: var(--gradient-hero);
-            padding: 2rem 1.5rem;
+            padding: 1.5rem 0.5rem;
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 1.25rem 1.25rem;
+            border-radius: 0 0 1rem 1rem;
             box-shadow: 0 8px 32px rgba(255, 107, 107, 0.18);
             margin-bottom: 1.5rem;
         }
@@ -289,9 +289,9 @@ function ucfc_render_modern_dashboard() {
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            padding: 0 1.5rem;
-            margin-bottom: 2rem;
+            gap: 0.75rem;
+            padding: 0 0.5rem;
+            margin-bottom: 1.5rem;
         }
         
         /* Stat Cards */
@@ -398,9 +398,9 @@ function ucfc_render_modern_dashboard() {
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            padding: 0 1.5rem;
-            margin-bottom: 2rem;
+            gap: 0.75rem;
+            padding: 0 0.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .quick-actions-header {
@@ -660,9 +660,9 @@ function ucfc_render_modern_dashboard() {
         .phase4-features {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            padding: 0 1.5rem;
-            margin-bottom: 2rem;
+            gap: 0.75rem;
+            padding: 0 0.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .feature-card {
@@ -750,9 +750,9 @@ function ucfc_render_modern_dashboard() {
         .two-column-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 1.25rem;
-            margin-top: 2rem;
-            padding: 0 1.5rem;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding: 0 0.5rem;
         }
         
         /* Responsive Breakpoints */
