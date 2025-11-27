@@ -149,14 +149,20 @@ class UCFC_Cart {
             return new WP_Error('invalid_quantity', 'Quantity must be at least 1');
         }
         
-        // Check stock availability
-        $stock = get_post_meta($product_id, '_stock', true);
+        // Check stock availability (try both meta keys)
+        $stock = get_post_meta($product_id, '_ucfc_stock', true);
+        if (!$stock) {
+            $stock = get_post_meta($product_id, '_stock', true);
+        }
         if ($stock !== '' && $stock < $quantity) {
             return new WP_Error('insufficient_stock', 'Not enough stock available');
         }
         
-        // Get price
-        $price = floatval(get_post_meta($product_id, '_price', true));
+        // Get price (try both meta keys for compatibility)
+        $price = floatval(get_post_meta($product_id, '_ucfc_price', true));
+        if (!$price) {
+            $price = floatval(get_post_meta($product_id, '_price', true));
+        }
         if ($price <= 0) {
             return new WP_Error('invalid_price', 'Product price not set');
         }
@@ -261,8 +267,11 @@ class UCFC_Cart {
             return $this->remove_item($cart_item_id);
         }
         
-        // Check stock
-        $stock = get_post_meta($item->product_id, '_stock', true);
+        // Check stock (try both meta keys)
+        $stock = get_post_meta($item->product_id, '_ucfc_stock', true);
+        if (!$stock) {
+            $stock = get_post_meta($item->product_id, '_stock', true);
+        }
         if ($stock !== '' && $stock < $quantity) {
             return new WP_Error('insufficient_stock', 'Not enough stock available');
         }

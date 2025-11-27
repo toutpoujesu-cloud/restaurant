@@ -24,7 +24,7 @@
                             <li><i class="fas fa-check"></i> 2 Sides of Your Choice</li>
                             <li><i class="fas fa-check"></i> 2 Dipping Sauces</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="Wing Combo" data-price="12">CUSTOMIZE & ORDER</button>
+                        <button class="btn add-to-cart-btn" data-product-id="29" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
 
@@ -44,7 +44,7 @@
                             <li><i class="fas fa-check"></i> 2 Large Sides</li>
                             <li><i class="fas fa-check"></i> 2 Signature Sauces</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="Family Box" data-price="21">CUSTOMIZE & ORDER ➤</button>
+                        <button class="btn add-to-cart-btn" data-product-id="30" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@
                             <li><i class="fas fa-check"></i> 3 Large Sides</li>
                             <li><i class="fas fa-check"></i> 3 Signature Sauces</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="Mega Feast" data-price="30">CUSTOMIZE & ORDER</button>
+                        <button class="btn add-to-cart-btn" data-product-id="31" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                             <li><i class="fas fa-check"></i> 2 Sides of Your Choice</li>
                             <li><i class="fas fa-check"></i> Available Wednesdays Only</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="Wednesday Wing Deal" data-price="12">CUSTOMIZE & ORDER</button>
+                        <button class="btn add-to-cart-btn" data-product-id="32" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
                 
@@ -99,7 +99,7 @@
                             <li><i class="fas fa-check"></i> 2 Large Sides</li>
                             <li><i class="fas fa-check"></i> Available Wednesdays Only</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="Wednesday Family Deal" data-price="21">CUSTOMIZE & ORDER</button>
+                        <button class="btn add-to-cart-btn" data-product-id="33" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
                 
@@ -114,7 +114,7 @@
                             <li><i class="fas fa-check"></i> 3 Large Sides</li>
                             <li><i class="fas fa-check"></i> Available Wednesdays Only</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="Wednesday Mega Deal" data-price="30">CUSTOMIZE & ORDER</button>
+                        <button class="btn add-to-cart-btn" data-product-id="34" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                             <li><i class="fas fa-check"></i> Hush Puppies</li>
                             <li><i class="fas fa-check"></i> 2 Sides of Your Choice</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="1-Piece Catfish Meal" data-price="9">CUSTOMIZE & ORDER</button>
+                        <button class="btn add-to-cart-btn" data-product-id="35" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
                 
@@ -152,7 +152,7 @@
                             <li><i class="fas fa-check"></i> Hush Puppies</li>
                             <li><i class="fas fa-check"></i> 2 Sides of Your Choice</li>
                         </ul>
-                        <button class="btn customize-btn" data-meal="2-Piece Catfish Meal" data-price="12">CUSTOMIZE & ORDER</button>
+                        <button class="btn add-to-cart-btn" data-product-id="36" data-quantity="1"><i class="fas fa-shopping-cart"></i> ADD TO CART</button>
                     </div>
                 </div>
             </div>
