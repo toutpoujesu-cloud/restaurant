@@ -189,6 +189,22 @@ if ($user_id) {
                             </div>
                         </div>
                         
+                        <!-- QR Code for Pickup (if order is ready or completed) -->
+                        <?php if (in_array($order->order_status, ['ready', 'completed']) && $order->order_type === 'pickup'): ?>
+                            <div class="order-qr-section">
+                                <h4><i class="fas fa-qrcode"></i> Pickup QR Code</h4>
+                                <p class="qr-instructions">Show this QR code when picking up your order</p>
+                                <div class="qr-code-container" id="qr-container-<?php echo $order->id; ?>">
+                                    <div class="qr-loading">
+                                        <i class="fas fa-spinner fa-spin"></i> Generating QR code...
+                                    </div>
+                                </div>
+                                <button class="refresh-qr-btn" data-order-id="<?php echo $order->id; ?>" style="display: none;">
+                                    <i class="fas fa-sync-alt"></i> Refresh QR Code
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                        
                         <!-- Estimated Time -->
                         <?php if (in_array($order->order_status, ['pending', 'confirmed', 'preparing']) && $minutes_remaining > 0): ?>
                             <div class="order-eta">
@@ -732,6 +748,96 @@ if ($user_id) {
     animation: spin 1s linear infinite;
 }
 
+/* QR Code Section */
+.order-qr-section {
+    margin-top: 20px;
+    padding: 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.order-qr-section h4 {
+    margin: 0 0 8px 0;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.qr-instructions {
+    margin: 0 0 20px 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+.qr-code-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.qr-code-image {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.qr-order-number {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.qr-loading,
+.qr-error {
+    padding: 60px 40px;
+    color: #666;
+}
+
+.qr-error {
+    color: #d92027;
+}
+
+.qr-loading i,
+.qr-error i {
+    font-size: 32px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.refresh-qr-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid white;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.refresh-qr-btn:hover {
+    background: white;
+    color: #667eea;
+}
+
+.refresh-qr-btn i {
+    margin-right: 6px;
+}
+
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -761,6 +867,55 @@ jQuery(document).ready(function($) {
         document.cookie = 'ucfc_guest_email=; path=/; max-age=0';
         location.reload();
     });
+    
+    // Load QR codes for ready/completed orders
+    $('.qr-code-container').each(function() {
+        const $container = $(this);
+        const orderId = $container.attr('id').replace('qr-container-', '');
+        
+        loadQRCode(orderId);
+    });
+    
+    // Refresh QR code button
+    $('.refresh-qr-btn').on('click', function() {
+        const orderId = $(this).data('order-id');
+        loadQRCode(orderId);
+    });
+    
+    // Function to load QR code
+    function loadQRCode(orderId) {
+        const $container = $('#qr-container-' + orderId);
+        const $refreshBtn = $('.refresh-qr-btn[data-order-id="' + orderId + '"]');
+        
+        $container.html('<div class="qr-loading"><i class="fas fa-spinner fa-spin"></i> Generating QR code...</div>');
+        $refreshBtn.hide();
+        
+        $.ajax({
+            url: ucfcCart.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'ucfc_generate_qr',
+                nonce: ucfcCart.nonce,
+                order_id: orderId
+            },
+            success: function(response) {
+                if (response.success) {
+                    $container.html(
+                        '<img src="' + response.data.qr_code + '" alt="Order QR Code" class="qr-code-image" />' +
+                        '<div class="qr-order-number">Order: ' + response.data.order_number + '</div>'
+                    );
+                    $refreshBtn.show();
+                } else {
+                    $container.html('<div class="qr-error"><i class="fas fa-exclamation-triangle"></i> Failed to generate QR code</div>');
+                    $refreshBtn.show();
+                }
+            },
+            error: function() {
+                $container.html('<div class="qr-error"><i class="fas fa-exclamation-triangle"></i> Error loading QR code</div>');
+                $refreshBtn.show();
+            }
+        });
+    }
     
     // Reorder button
     $('.reorder-btn').on('click', function() {
