@@ -920,141 +920,164 @@ function ucfc_render_modern_dashboard() {
         }
     </style>
     
-    <div class="ucfc-modern-dashboard">
+    <div class="modern-dashboard">
         <!-- Header -->
-        <div class="ucfc-dashboard-header">
-            <h1 class="ucfc-dashboard-title">
-                <span class="emoji">🍗</span>
-                Restaurant Command Center
-            </h1>
-            <div class="ucfc-dashboard-actions">
-                <a href="<?php echo home_url(); ?>" class="ucfc-btn ucfc-btn-secondary" target="_blank">
-                    <span class="ucfc-btn-icon">🌐</span>
-                    View Site
-                </a>
-                <a href="<?php echo home_url('/kitchen-display'); ?>" class="ucfc-btn ucfc-btn-primary" target="_blank" rel="noopener">
-                    <span class="ucfc-btn-icon">🍳</span>
-                    Kitchen Display
-                </a>
+        <div class="dashboard-header">
+            <div class="header-bg">
+                <div class="gradient-orb" style="top: -100px; left: -100px;"></div>
+                <div class="gradient-orb" style="top: 100px; right: -150px; animation-delay: -4s;"></div>
+            </div>
+            <div class="dashboard-header-content">
+                <div class="header-title-wrapper">
+                    <div class="header-title-icon">
+                        <span style="font-size: 48px;">🍗</span>
+                    </div>
+                    <div>
+                        <h1>Restaurant Command Center</h1>
+                        <p>Manage your restaurant operations with ease</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="<?php echo home_url(); ?>" class="btn-secondary" target="_blank">
+                        <span class="btn-icon">🌐</span>
+                        <span>View Site</span>
+                    </a>
+                    <a href="<?php echo home_url('/kitchen-display'); ?>" class="btn-primary" target="_blank" rel="noopener">
+                        <span class="btn-icon">🍳</span>
+                        <span>Kitchen Display</span>
+                    </a>
+                </div>
             </div>
         </div>
         
         <!-- Stats Grid -->
-        <div class="ucfc-stats-grid">
-            <div class="ucfc-stat-card">
-                <div class="ucfc-stat-header">
-                    <div class="ucfc-stat-icon">💰</div>
-                    <div class="ucfc-stat-trend">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-trend">
                         <span>↗</span> +12.5%
                     </div>
                 </div>
-                <div class="ucfc-stat-value">$<?php echo number_format($stats['revenue'], 0); ?></div>
-                <div class="ucfc-stat-label">Total Revenue</div>
+                <div class="stat-value">$<?php echo number_format($stats['revenue'], 0); ?></div>
+                <div class="stat-label">Total Revenue</div>
             </div>
             
-            <div class="ucfc-stat-card">
-                <div class="ucfc-stat-header">
-                    <div class="ucfc-stat-icon">📦</div>
-                    <div class="ucfc-stat-trend">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-trend">
                         <span>↗</span> +8.3%
                     </div>
                 </div>
-                <div class="ucfc-stat-value"><?php echo $stats['total_orders']; ?></div>
-                <div class="ucfc-stat-label">Total Orders</div>
+                <div class="stat-value"><?php echo $stats['total_orders']; ?></div>
+                <div class="stat-label">Total Orders</div>
             </div>
             
-            <div class="ucfc-stat-card">
-                <div class="ucfc-stat-header">
-                    <div class="ucfc-stat-icon">⏱️</div>
-                    <div class="ucfc-stat-trend">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-trend">
                         <span>↗</span> <?php echo $stats['active_orders']; ?> active
                     </div>
                 </div>
-                <div class="ucfc-stat-value"><?php echo $stats['today_orders']; ?></div>
-                <div class="ucfc-stat-label">Today's Orders</div>
+                <div class="stat-value"><?php echo $stats['today_orders']; ?></div>
+                <div class="stat-label">Today's Orders</div>
             </div>
             
-            <div class="ucfc-stat-card">
-                <div class="ucfc-stat-header">
-                    <div class="ucfc-stat-icon">⭐</div>
-                    <div class="ucfc-stat-trend">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-trend">
                         <span>↗</span> +15.2%
                     </div>
                 </div>
-                <div class="ucfc-stat-value"><?php echo $stats['menu_items']; ?></div>
-                <div class="ucfc-stat-label">Menu Items</div>
+                <div class="stat-value"><?php echo $stats['menu_items']; ?></div>
+                <div class="stat-label">Menu Items</div>
             </div>
         </div>
         
         <!-- Quick Actions -->
-        <div class="ucfc-glass-container">
-            <h2 style="color: white; font-size: 28px; font-weight: 700; margin-bottom: 25px;">⚡ Quick Actions</h2>
-            <div class="ucfc-actions-grid">
-                <a href="<?php echo admin_url('edit.php?post_type=menu_item'); ?>" class="ucfc-action-card">
-                    <div class="ucfc-action-icon">🍽️</div>
-                    <div class="ucfc-action-title">Manage Menu</div>
-                    <div class="ucfc-action-desc">Add, edit, or remove menu items</div>
-                </a>
-                
-                <a href="<?php echo admin_url('admin.php?page=ucfc-orders'); ?>" class="ucfc-action-card">
-                    <div class="ucfc-action-icon">📋</div>
-                    <div class="ucfc-action-title">View Orders</div>
-                    <div class="ucfc-action-desc">Manage and track all orders</div>
-                </a>
-                
-                <a href="<?php echo home_url('/scan-pickup'); ?>" class="ucfc-action-card" target="_blank">
-                    <div class="ucfc-action-icon">📱</div>
-                    <div class="ucfc-action-title">QR Scanner</div>
-                    <div class="ucfc-action-desc">Scan QR codes for pickup</div>
-                </a>
-                
-                <a href="<?php echo admin_url('admin.php?page=restaurant-settings-panel'); ?>" class="ucfc-action-card">
-                    <div class="ucfc-action-icon">⚙️</div>
-                    <div class="ucfc-action-title">Settings</div>
-                    <div class="ucfc-action-desc">Configure restaurant options</div>
-                </a>
-                
-                <a href="<?php echo admin_url('edit.php?post_type=special_offer'); ?>" class="ucfc-action-card">
-                    <div class="ucfc-action-icon">🎁</div>
-                    <div class="ucfc-action-title">Special Offers</div>
-                    <div class="ucfc-action-desc">Create promotional deals</div>
-                </a>
-                
-                <a href="<?php echo admin_url('edit.php?post_type=customer_review'); ?>" class="ucfc-action-card">
-                    <div class="ucfc-action-icon">💬</div>
-                    <div class="ucfc-action-title">Reviews</div>
-                    <div class="ucfc-action-desc">Manage customer feedback</div>
-                </a>
-            </div>
+        <div class="section-header">
+            <h2>⚡ Quick Actions</h2>
+        </div>
+        <div class="quick-actions">
+            <a href="<?php echo admin_url('edit.php?post_type=menu_item'); ?>" class="action-card">
+                <div class="action-icon">🍽️</div>
+                <div class="action-content">
+                    <div class="action-title">Manage Menu</div>
+                    <div class="action-description">Add, edit, or remove menu items</div>
+                </div>
+            </a>
+            
+            <a href="<?php echo admin_url('admin.php?page=ucfc-orders'); ?>" class="action-card">
+                <div class="action-icon">📋</div>
+                <div class="action-content">
+                    <div class="action-title">View Orders</div>
+                    <div class="action-description">Manage and track all orders</div>
+                </div>
+            </a>
+            
+            <a href="<?php echo home_url('/scan-pickup'); ?>" class="action-card" target="_blank">
+                <div class="action-icon">📱</div>
+                <div class="action-content">
+                    <div class="action-title">QR Scanner</div>
+                    <div class="action-description">Scan QR codes for pickup</div>
+                </div>
+            </a>
+            
+            <a href="<?php echo admin_url('admin.php?page=restaurant-settings-panel'); ?>" class="action-card">
+                <div class="action-icon">⚙️</div>
+                <div class="action-content">
+                    <div class="action-title">Settings</div>
+                    <div class="action-description">Configure restaurant options</div>
+                </div>
+            </a>
+            
+            <a href="<?php echo admin_url('edit.php?post_type=special_offer'); ?>" class="action-card">
+                <div class="action-icon">🎁</div>
+                <div class="action-content">
+                    <div class="action-title">Special Offers</div>
+                    <div class="action-description">Create promotional deals</div>
+                </div>
+            </a>
+            
+            <a href="<?php echo admin_url('edit.php?post_type=customer_review'); ?>" class="action-card">
+                <div class="action-icon">💬</div>
+                <div class="action-content">
+                    <div class="action-title">Reviews</div>
+                    <div class="action-description">Manage customer feedback</div>
+                </div>
+            </a>
         </div>
         
         <!-- Two Column Layout -->
-        <div class="ucfc-two-column">
+        <div class="two-column-layout">
             <!-- Sales Chart -->
-            <div class="ucfc-chart-container">
-                <div class="ucfc-chart-header">
-                    <h3 class="ucfc-chart-title">📈 Sales Overview</h3>
-                    <div class="ucfc-chart-filters">
-                        <button class="ucfc-filter-btn active">7 Days</button>
-                        <button class="ucfc-filter-btn">30 Days</button>
-                        <button class="ucfc-filter-btn">90 Days</button>
+            <div class="sales-chart-container">
+                <div class="chart-header">
+                    <h3>📈 Sales Overview</h3>
+                    <div class="time-period-selector">
+                        <button class="period-btn active">7 Days</button>
+                        <button class="period-btn">30 Days</button>
+                        <button class="period-btn">90 Days</button>
                     </div>
                 </div>
-                <canvas id="ucfc-sales-chart" height="200"></canvas>
+                <canvas id="ucfc-sales-chart" style="max-height: 200px;"></canvas>
             </div>
             
             <!-- Recent Activity -->
-            <div class="ucfc-chart-container">
-                <h3 class="ucfc-chart-title" style="margin-bottom: 20px;">🔔 Recent Activity</h3>
-                <ul class="ucfc-activity-list">
+            <div class="recent-activity-container">
+                <h3>🔔 Recent Activity</h3>
+                <ul class="activity-list">
                     <?php foreach ($stats['recent_activity'] as $activity): ?>
-                    <li class="ucfc-activity-item">
-                        <div class="ucfc-activity-icon"><?php echo $activity['icon']; ?></div>
-                        <div class="ucfc-activity-content">
-                            <div class="ucfc-activity-title"><?php echo esc_html($activity['title']); ?></div>
-                            <div class="ucfc-activity-meta"><?php echo esc_html($activity['time']); ?></div>
+                    <li class="activity-item">
+                        <div class="activity-icon"><?php echo $activity['icon']; ?></div>
+                        <div class="activity-content">
+                            <div class="activity-title"><?php echo esc_html($activity['title']); ?></div>
+                            <div class="activity-meta"><?php echo esc_html($activity['time']); ?></div>
                         </div>
-                        <span class="ucfc-activity-badge <?php echo $activity['status']; ?>"><?php echo esc_html($activity['badge']); ?></span>
+                        <span class="activity-badge <?php echo $activity['status']; ?>"><?php echo esc_html($activity['badge']); ?></span>
                     </li>
                     <?php endforeach; ?>
                 </ul>
@@ -1062,43 +1085,59 @@ function ucfc_render_modern_dashboard() {
         </div>
         
         <!-- Phase 4 Features Status -->
-        <div class="ucfc-glass-container">
-            <h2 style="color: white; font-size: 28px; font-weight: 700; margin-bottom: 25px;">🚀 Advanced Features</h2>
-            <div class="ucfc-stats-grid">
-                <div class="ucfc-stat-card" style="background: rgba(16, 185, 129, 0.15);">
-                    <div class="ucfc-stat-icon" style="background: rgba(16, 185, 129, 0.3);">📱</div>
-                    <div class="ucfc-stat-value" style="font-size: 32px;">SMS</div>
-                    <div class="ucfc-stat-label">Twilio Notifications</div>
-                    <div style="margin-top: 10px; font-size: 13px; color: rgba(255, 255, 255, 0.7);">
-                        <?php echo $stats['sms_sent']; ?> sent today
-                    </div>
+        <div class="section-header">
+            <h2>🚀 Advanced Features</h2>
+        </div>
+        <div class="phase4-features">
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">SMS Notifications</div>
                 </div>
-                
-                <div class="ucfc-stat-card" style="background: rgba(59, 130, 246, 0.15);">
-                    <div class="ucfc-stat-icon" style="background: rgba(59, 130, 246, 0.3);">🔔</div>
-                    <div class="ucfc-stat-value" style="font-size: 32px;">Push</div>
-                    <div class="ucfc-stat-label">Browser Notifications</div>
-                    <div style="margin-top: 10px; font-size: 13px; color: rgba(255, 255, 255, 0.7);">
-                        <?php echo $stats['push_subscribers']; ?> subscribers
-                    </div>
+                <div class="feature-description">
+                    Twilio integration for real-time order updates via SMS
                 </div>
-                
-                <div class="ucfc-stat-card" style="background: rgba(245, 158, 11, 0.15);">
-                    <div class="ucfc-stat-icon" style="background: rgba(245, 158, 11, 0.3);">🍳</div>
-                    <div class="ucfc-stat-value" style="font-size: 32px;">KDS</div>
-                    <div class="ucfc-stat-label">Kitchen Display</div>
-                    <div style="margin-top: 10px; font-size: 13px; color: rgba(255, 255, 255, 0.7);">
-                        <a href="<?php echo home_url('/kitchen-display'); ?>" style="color: white; text-decoration: underline;">Open Display →</a>
-                    </div>
+                <div class="feature-status active">
+                    Active • <?php echo $stats['sms_sent']; ?> sent today
                 </div>
-                
-                <div class="ucfc-stat-card" style="background: rgba(139, 92, 246, 0.15);">
-                    <div class="ucfc-stat-icon" style="background: rgba(139, 92, 246, 0.3);">📱</div>
-                    <div class="ucfc-stat-value" style="font-size: 32px;">QR</div>
-                    <div class="ucfc-stat-label">Pickup Scanner</div>
-                    <div style="margin-top: 10px; font-size: 13px; color: rgba(255, 255, 255, 0.7);">
-                        <?php echo $stats['qr_scans']; ?> scans today
-                    </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-title">Push Notifications</div>
+                </div>
+                <div class="feature-description">
+                    Browser push notifications for instant customer updates
+                </div>
+                <div class="feature-status active">
+                    Active • <?php echo $stats['push_subscribers']; ?> subscribers
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">🍳</div>
+                    <div class="feature-title">Kitchen Display</div>
+                </div>
+                <div class="feature-description">
+                    Real-time order management for kitchen operations
+                </div>
+                <div class="feature-status active">
+                    <a href="<?php echo home_url('/kitchen-display'); ?>" style="color: inherit; text-decoration: none;">Active • Open Display →</a>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-header">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">QR Code Scanner</div>
+                </div>
+                <div class="feature-description">
+                    Quick and secure order pickup verification system
+                </div>
+                <div class="feature-status active">
+                    Active • <?php echo $stats['qr_scans']; ?> scans today
                 </div>
             </div>
         </div>
