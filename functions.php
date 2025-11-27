@@ -44,6 +44,10 @@ require_once get_template_directory() . '/inc/admin-dashboard.php';
 require_once get_template_directory() . '/inc/menu-builder.php';
 require_once get_template_directory() . '/inc/menu-dashboard.php';
 
+// Include Cart System Files
+require_once get_template_directory() . '/inc/cart-system.php';
+require_once get_template_directory() . '/inc/cart-ajax-handlers.php';
+
 // Include AI System Files
 require_once get_template_directory() . '/inc/ai-assistant-settings.php';
 require_once get_template_directory() . '/inc/ai-conversation-logger.php';
