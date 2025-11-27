@@ -85,10 +85,12 @@ function ucfc_render_modern_dashboard() {
         
         .ucfc-modern-dashboard {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #c44569 75%, #6c5ce7 100%);
+            padding: 30px;
             margin: -20px -20px -20px -42px;
             width: calc(100% + 62px);
+            max-width: 100vw;
+            overflow-x: hidden;
         }
         
         /* Glassmorphism Container */
@@ -96,11 +98,11 @@ function ucfc_render_modern_dashboard() {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            padding: 40px;
-            margin-bottom: 30px;
+            padding: 25px;
+            margin-bottom: 25px;
         }
         
         /* Header */
@@ -108,18 +110,18 @@ function ucfc_render_modern_dashboard() {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
         }
         
         .ucfc-dashboard-title {
-            font-size: 42px;
+            font-size: 32px;
             font-weight: 800;
             color: white;
             margin: 0;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         
         .ucfc-dashboard-title .emoji {
@@ -158,7 +160,7 @@ function ucfc_render_modern_dashboard() {
         }
         
         .ucfc-btn-primary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #fd79a8 0%, #ff6b6b 100%);
             color: white;
         }
         
@@ -175,16 +177,16 @@ function ucfc_render_modern_dashboard() {
         /* Stats Grid */
         .ucfc-stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
         }
         
         .ucfc-stat-card {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -198,7 +200,7 @@ function ucfc_render_modern_dashboard() {
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(90deg, #ffeaa7 0%, #fd79a8 100%);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
@@ -266,16 +268,16 @@ function ucfc_render_modern_dashboard() {
         /* Quick Actions Grid */
         .ucfc-actions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 25px;
         }
         
         .ucfc-action-card {
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(10px);
-            border-radius: 18px;
-            padding: 25px;
+            border-radius: 14px;
+            padding: 18px;
             border: 1px solid rgba(255, 255, 255, 0.25);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -324,10 +326,10 @@ function ucfc_render_modern_dashboard() {
         .ucfc-chart-container {
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            margin-bottom: 40px;
+            margin-bottom: 25px;
         }
         
         .ucfc-chart-container canvas {
@@ -443,7 +445,7 @@ function ucfc_render_modern_dashboard() {
         .ucfc-two-column {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 25px;
+            gap: 16px;
         }
         
         @media (max-width: 1200px) {
