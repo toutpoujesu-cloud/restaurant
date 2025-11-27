@@ -72,7 +72,28 @@ function ucfc_render_modern_dashboard() {
     ?>
     
     <style>
-        /* 🎨 2025 MODERN DASHBOARD DESIGN */
+        /* 🎨 RESTAURANT COMMAND CENTER - COMPLETE REDESIGN */
+        
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+        
+        /* CSS Variables */
+        :root {
+            --coral-dawn: #FF6B6B;
+            --sunset-orange: #FF8E3C;
+            --golden-hour: #FFD166;
+            --dark-charcoal: #1A1A1D;
+            --slate-gray: #4A4A4F;
+            --soft-gray: #9CA3AF;
+            --off-white: #F9FAFB;
+            --success-green: #10B981;
+            --warning-amber: #F59E0B;
+            --info-blue: #3B82F6;
+            --font-display: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --gradient-primary: linear-gradient(135deg, #FF6B6B 0%, #FF8E3C 50%, #FFD166 100%);
+            --gradient-hero: linear-gradient(180deg, #FF6B6B 0%, #FF8E3C 100%);
+        }
         
         /* Reset WordPress admin styles */
         #wpbody-content {
@@ -84,397 +105,783 @@ function ucfc_render_modern_dashboard() {
         }
         
         .ucfc-modern-dashboard {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #c44569 75%, #6c5ce7 100%);
-            padding: 30px;
+            font-family: var(--font-body);
+            background: var(--off-white);
+            padding: 0;
             margin: -20px -20px -20px -42px;
             width: calc(100% + 62px);
             max-width: 100vw;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         
-        /* Glassmorphism Container */
-        .ucfc-glass-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            padding: 25px;
-            margin-bottom: 25px;
+        /* Header Section */
+        .dashboard-header {
+            background: var(--gradient-hero);
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 2rem 2rem;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.18);
+            margin-bottom: 3rem;
         }
         
-        /* Header */
-        .ucfc-dashboard-header {
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: float-orb 8s ease-in-out infinite;
+        }
+        
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--golden-hour) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+        }
+        
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--sunset-orange) 0%, transparent 70%);
+            bottom: -150px;
+            left: -50px;
+            animation-delay: -4s;
+        }
+        
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            gap: 1.5rem;
         }
         
-        .ucfc-dashboard-title {
-            font-size: 32px;
-            font-weight: 800;
-            color: white;
-            margin: 0;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        .header-title-section {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 1.25rem;
         }
         
-        .ucfc-dashboard-title .emoji {
-            font-size: 48px;
+        .title-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            font-size: 32px;
             animation: float 3s ease-in-out infinite;
         }
         
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         
-        .ucfc-dashboard-actions {
+        .header-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+        
+        .header-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+        
+        .header-actions {
             display: flex;
-            gap: 15px;
+            gap: 0.75rem;
         }
         
-        .ucfc-btn {
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: none;
+        .btn-icon {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 1rem;
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .ucfc-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .ucfc-btn-primary {
-            background: linear-gradient(135deg, #fd79a8 0%, #ff6b6b 100%);
-            color: white;
-        }
-        
-        .ucfc-btn-secondary {
+        .btn-secondary {
             background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
             color: white;
             border: 2px solid rgba(255, 255, 255, 0.3);
         }
         
-        .ucfc-btn-icon {
-            font-size: 18px;
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
         
-        /* Stats Grid */
-        .ucfc-stats-grid {
+        .btn-primary {
+            background: white;
+            color: var(--coral-dawn);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 0 2.5rem;
+            margin-top: -3rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
         
-        .ucfc-stat-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Stat Cards */
+        .stat-card {
+            width: 100%;
+            min-height: 180px;
+            padding: 2rem;
+            background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+            border: 2px solid rgba(255, 107, 107, 0.1);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         
-        .ucfc-stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #ffeaa7 0%, #fd79a8 100%);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
-        .ucfc-stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(255, 107, 107, 0.24), inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-color: rgba(255, 107, 107, 0.3);
         }
         
-        .ucfc-stat-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .ucfc-stat-header {
+        .stat-card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
         }
         
-        .ucfc-stat-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
-            border-radius: 16px;
+        .stat-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-primary);
+            border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+            animation: float 3s ease-in-out infinite;
+            font-size: 32px;
         }
         
-        .ucfc-stat-trend {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .ucfc-stat-trend.negative {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-        
-        .ucfc-stat-value {
-            font-size: 48px;
-            font-weight: 800;
-            color: white;
-            line-height: 1;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .ucfc-stat-label {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
-        }
-        
-        /* Quick Actions Grid */
-        .ucfc-actions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-            margin-bottom: 25px;
-        }
-        
-        .ucfc-action-card {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(10px);
-            border-radius: 14px;
-            padding: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            text-decoration: none !important;
-            display: block;
-            color: inherit;
-        }
-        
-        .ucfc-action-card:hover {
-            background: rgba(255, 255, 255, 0.18);
-            transform: scale(1.02);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-        
-        .ucfc-action-card:focus {
-            outline: 2px solid rgba(255, 255, 255, 0.5);
-            outline-offset: 2px;
-        }
-        
-        .ucfc-action-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        
-        .ucfc-action-title {
-            font-size: 18px;
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
             font-weight: 700;
-            color: white !important;
-            margin-bottom: 8px;
+            color: var(--dark-charcoal);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-top: 1.25rem;
+            text-shadow: 0 2px 8px rgba(255, 107, 107, 0.15);
         }
         
-        .ucfc-action-desc {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.75) !important;
-            line-height: 1.5;
+        .currency {
+            font-size: 2rem;
+            margin-right: 0.25rem;
+            opacity: 0.7;
+        }
+        
+        .stat-label {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--slate-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+        
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-green);
+        }
+        
+        .stat-trend.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            margin-top: 3rem;
+            padding: 0 2.5rem;
+        }
+        
+        .quick-actions-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .quick-actions-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-charcoal);
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        /* Action Cards */
+        .action-card {
+            position: relative;
+            padding: 2rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFB 100%);
+            border-radius: 1.5rem;
+            border: 2px solid rgba(255, 107, 107, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(255, 107, 107, 0.08);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            overflow: hidden;
+            text-decoration: none !important;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes scaleIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .action-card:nth-child(1) { animation-delay: 0.1s; }
+        .action-card:nth-child(2) { animation-delay: 0.2s; }
+        .action-card:nth-child(3) { animation-delay: 0.3s; }
+        .action-card:nth-child(4) { animation-delay: 0.4s; }
+        .action-card:nth-child(5) { animation-delay: 0.5s; }
+        .action-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .action-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 25px 60px rgba(255, 107, 107, 0.2);
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+        
+        .action-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 142, 60, 0.15) 100%);
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), 0 4px 16px rgba(255, 107, 107, 0.2);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            font-size: 36px;
+        }
+        
+        .action-card:hover .action-icon {
+            transform: scale(1.1) rotateZ(5deg);
+        }
+        
+        .action-title {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: var(--dark-charcoal) !important;
+            margin-bottom: 0.5rem;
+        }
+        
+        .action-card:hover .action-title {
+            color: var(--coral-dawn) !important;
+        }
+        
+        .action-description {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            color: var(--slate-gray) !important;
+            line-height: 1.6;
+        }
+        
+        /* Dashboard Columns */
+        .dashboard-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding: 0 2.5rem;
         }
         
         /* Chart Container */
-        .ucfc-chart-container {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            margin-bottom: 25px;
+        .sales-chart-container,
+        .recent-activity-container {
+            background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFB 100%);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            border: 2px solid rgba(255, 107, 107, 0.1);
+            box-shadow: 0 8px 32px rgba(255, 107, 107, 0.08);
         }
         
-        .ucfc-chart-container canvas {
-            max-height: 300px !important;
+        .sales-chart-container canvas {
+            max-height: 200px !important;
         }
         
-        .ucfc-chart-header {
+        .sales-chart-header,
+        .activity-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
         }
         
-        .ucfc-chart-title {
-            font-size: 24px;
+        .sales-chart-title,
+        .activity-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
             font-weight: 700;
-            color: white;
+            color: var(--dark-charcoal);
         }
         
-        .ucfc-chart-filters {
+        .time-period-selector {
             display: flex;
-            gap: 10px;
+            gap: 0.5rem;
+            background: rgba(255, 107, 107, 0.05);
+            padding: 0.25rem;
+            border-radius: 1rem;
         }
         
-        .ucfc-filter-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .period-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            border-radius: 0.75rem;
+            font-family: var(--font-display);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--slate-gray);
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         
-        .ucfc-filter-btn.active {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: white;
+        .period-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        
+        .period-btn:hover:not(.active) {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--coral-dawn);
         }
         
         /* Recent Activity */
-        .ucfc-activity-list {
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
             list-style: none;
             padding: 0;
             margin: 0;
         }
         
-        .ucfc-activity-item {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+        .activity-item {
             display: flex;
             align-items: center;
-            gap: 20px;
-            transition: all 0.3s;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: linear-gradient(145deg, rgba(255, 107, 107, 0.03) 0%, rgba(255, 142, 60, 0.03) 100%);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            transition: all 0.3s ease;
         }
         
-        .ucfc-activity-item:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateX(5px);
+        .activity-item:hover {
+            background: linear-gradient(145deg, rgba(255, 107, 107, 0.06) 0%, rgba(255, 142, 60, 0.06) 100%);
+            transform: translateX(4px);
+            border-color: rgba(255, 107, 107, 0.2);
         }
         
-        .ucfc-activity-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-            border-radius: 12px;
+        .activity-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: 0.75rem;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
         }
         
-        .ucfc-activity-content {
+        .activity-content {
             flex: 1;
         }
         
-        .ucfc-activity-title {
-            font-size: 16px;
+        .activity-title {
+            font-size: 1rem;
             font-weight: 600;
-            color: white;
-            margin-bottom: 5px;
+            color: var(--dark-charcoal);
+            margin-bottom: 0.25rem;
         }
         
-        .ucfc-activity-meta {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.65);
+        .activity-meta {
+            font-size: 0.875rem;
+            color: var(--soft-gray);
         }
         
-        .ucfc-activity-badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
+        .activity-badge {
+            padding: 0.375rem 0.875rem;
+            border-radius: 0.75rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            background: rgba(59, 130, 246, 0.2);
-            color: #3b82f6;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        .ucfc-activity-badge.success {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
+        .activity-badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-green);
         }
         
-        .ucfc-activity-badge.warning {
-            background: rgba(245, 158, 11, 0.2);
-            color: #f59e0b;
+        .activity-badge.warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-amber);
+        }
+        
+        .activity-badge.info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info-blue);
+        }
+        
+        /* Phase 4 Features Section */
+        .phase4-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+            border: 2px solid rgba(255, 107, 107, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.08);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(255, 107, 107, 0.15);
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+        
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-primary);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark-charcoal);
+            font-family: var(--font-display);
+        }
+        
+        .feature-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.75rem;
+        }
+        
+        .feature-status.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-green);
+        }
+        
+        .feature-status.active::before {
+            content: '●';
+            font-size: 1rem;
+        }
+        
+        .feature-description {
+            font-size: 0.9375rem;
+            color: var(--soft-gray);
+            line-height: 1.7;
+            font-family: var(--font-body);
         }
         
         /* Two Column Layout */
-        .ucfc-two-column {
+        .two-column-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 16px;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        /* Responsive Breakpoints */
+        @media (max-width: 1400px) {
+            .dashboard-header {
+                padding: 2.5rem 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .quick-actions {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
         }
         
         @media (max-width: 1200px) {
-            .ucfc-two-column {
+            .two-column-layout {
                 grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .action-card {
+                min-height: 180px;
+            }
+            
+            .phase4-features {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
         
-        /* Responsive */
+        @media (max-width: 992px) {
+            .modern-dashboard {
+                padding: 1.5rem;
+            }
+            
+            .dashboard-header-content h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid,
+            .quick-actions {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1.25rem;
+            }
+            
+            .stat-value {
+                font-size: 2.75rem;
+            }
+            
+            .action-card {
+                min-height: 160px;
+                padding: 1.5rem;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .ucfc-modern-dashboard {
-                padding: 20px;
-                margin: -20px;
-                width: calc(100% + 40px);
+            .modern-dashboard {
+                padding: 1rem;
+                margin: -20px -20px -20px -40px;
+                width: calc(100% + 60px);
             }
             
-            .ucfc-dashboard-title {
-                font-size: 32px;
+            .dashboard-header {
+                padding: 2rem 1.25rem;
+                border-radius: 0 0 1.5rem 1.5rem;
             }
             
-            .ucfc-dashboard-header {
+            .dashboard-header-content h1 {
+                font-size: 1.75rem;
+            }
+            
+            .dashboard-header-content p {
+                font-size: 0.9375rem;
+            }
+            
+            .header-actions {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
+                width: 100%;
+                gap: 0.75rem;
             }
             
-            .ucfc-stats-grid,
-            .ucfc-actions-grid {
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .action-card {
+                min-height: 140px;
+                padding: 1.25rem;
+            }
+            
+            .action-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
+            }
+            
+            .sales-chart-container,
+            .recent-activity-container {
+                padding: 1.5rem;
+            }
+            
+            .time-period-selector {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .period-btn {
+                flex: 1;
+                min-width: 80px;
+            }
+            
+            .phase4-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .modern-dashboard {
+                margin: -20px -10px;
+                width: calc(100% + 20px);
+            }
+            
+            .dashboard-header-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stat-value {
+                font-size: 2.25rem;
+            }
+            
+            .action-title {
+                font-size: 1.125rem;
+            }
+            
+            .gradient-orb {
+                width: 300px;
+                height: 300px;
             }
         }
         
