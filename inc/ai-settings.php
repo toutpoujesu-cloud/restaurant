@@ -110,6 +110,19 @@ function restaurant_render_ai_settings_tab() {
     $nonce = wp_create_nonce('ai_settings_nonce');
     ?>
     
+    <style>
+        /* WordPress Admin Wrapper Styles */
+        #wpcontent {
+            background: #F3F4F6;
+        }
+        
+        .wp-heading-inline {
+            color: #1A1A1D;
+            font-weight: 700;
+        }
+        
+        /* Main Container */
+    
     <div class="ai-settings-container">
         <!-- Header Section -->
         <div class="ai-settings-header">

@@ -29,6 +29,16 @@ function ucfc_register_modern_dashboard() {
     
     // Remove default submenu (Dashboard gets auto-added)
     remove_submenu_page('restaurant-hub', 'restaurant-hub');
+    
+    // Add AI Settings submenu
+    add_submenu_page(
+        'restaurant-hub',
+        __('AI Settings', 'uncle-chans'),
+        __('🤖 AI Settings', 'uncle-chans'),
+        'manage_options',
+        'restaurant-ai-settings',
+        'ucfc_render_ai_settings_page'
+    );
 }
 add_action('admin_menu', 'ucfc_register_modern_dashboard', 9);
 
@@ -1313,4 +1323,16 @@ function ucfc_get_dashboard_stats() {
         'chart_data' => $chart_data,
         'recent_activity' => $recent_activity
     );
+}
+
+/**
+ * Render AI Settings Page
+ */
+function ucfc_render_ai_settings_page() {
+    if (!current_user_can('manage_options')) {
+        wp_die(__('Insufficient permissions', 'uncle-chans'));
+    }
+    
+    // Include the AI settings file
+    restaurant_render_ai_settings_tab();
 }
