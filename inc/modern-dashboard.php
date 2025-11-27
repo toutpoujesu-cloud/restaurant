@@ -79,12 +79,17 @@ function ucfc_render_modern_dashboard() {
             padding: 0 !important;
         }
         
+        #wpcontent {
+            padding-left: 0 !important;
+        }
+        
         .ucfc-modern-dashboard {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            min-height: calc(100vh - 32px);
             padding: 40px;
-            margin-left: -20px;
+            margin: -20px -20px -20px -42px;
+            width: calc(100% + 62px);
         }
         
         /* Glassmorphism Container */
@@ -275,14 +280,20 @@ function ucfc_render_modern_dashboard() {
             border: 1px solid rgba(255, 255, 255, 0.25);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            text-decoration: none;
+            text-decoration: none !important;
             display: block;
+            color: inherit;
         }
         
         .ucfc-action-card:hover {
             background: rgba(255, 255, 255, 0.18);
             transform: scale(1.02);
             border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .ucfc-action-card:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.5);
+            outline-offset: 2px;
         }
         
         .ucfc-action-icon {
@@ -300,13 +311,13 @@ function ucfc_render_modern_dashboard() {
         .ucfc-action-title {
             font-size: 18px;
             font-weight: 700;
-            color: white;
+            color: white !important;
             margin-bottom: 8px;
         }
         
         .ucfc-action-desc {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.75);
+            color: rgba(255, 255, 255, 0.75) !important;
             line-height: 1.5;
         }
         
@@ -442,6 +453,8 @@ function ucfc_render_modern_dashboard() {
         @media (max-width: 768px) {
             .ucfc-modern-dashboard {
                 padding: 20px;
+                margin: -20px;
+                width: calc(100% + 40px);
             }
             
             .ucfc-dashboard-title {
@@ -458,6 +471,11 @@ function ucfc_render_modern_dashboard() {
             .ucfc-actions-grid {
                 grid-template-columns: 1fr;
             }
+        }
+        
+        /* Fix WordPress admin bar conflict */
+        body.admin-bar .ucfc-modern-dashboard {
+            min-height: calc(100vh - 32px - 32px);
         }
         
         /* Loading State */
