@@ -1,0 +1,821 @@
+/**
+ * Menu Dashboard CSS
+ * Professional, modern styling for the menu management dashboard
+ */
+
+/* ============================================
+   DASHBOARD LAYOUT
+   ============================================ */
+.ucfc-menu-dashboard {
+    background: #f5f5f5;
+    margin: -20px -20px 0 -42px;
+    padding: 30px;
+}
+
+.ucfc-dashboard-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ucfc-dashboard-title .dashicons {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: #C92A2A;
+}
+
+.ucfc-dashboard-title .button {
+    margin-left: auto;
+}
+
+/* ============================================
+   STATS CARDS
+   ============================================ */
+.ucfc-dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.ucfc-stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.ucfc-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.ucfc-stat-icon {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.ucfc-stat-content {
+    flex: 1;
+}
+
+.ucfc-stat-label {
+    font-size: 13px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.ucfc-stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2D2D2D;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.ucfc-stat-trend {
+    font-size: 12px;
+    color: #8A8A8A;
+}
+
+.ucfc-trend-up {
+    color: #2E8B57;
+}
+
+.ucfc-trend-up .dashicons {
+    color: #2E8B57;
+}
+
+.ucfc-trend-down {
+    color: #C92A2A;
+}
+
+/* ============================================
+   DASHBOARD SECTIONS
+   ============================================ */
+.ucfc-dashboard-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.ucfc-dashboard-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    color: #2D2D2D;
+}
+
+.ucfc-dashboard-section h2 .dashicons {
+    color: #C92A2A;
+}
+
+/* ============================================
+   TOP SELLERS TABLE
+   ============================================ */
+.ucfc-top-sellers table {
+    margin: 0;
+}
+
+.ucfc-rank {
+    font-weight: 700;
+    font-size: 18px;
+    color: #F0B429;
+}
+
+.ucfc-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.ucfc-badge-hot {
+    background: #FFF3CD;
+    color: #C92A2A;
+}
+
+.ucfc-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+}
+
+/* ============================================
+   ALERTS
+   ============================================ */
+.ucfc-alerts {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ucfc-alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.ucfc-alert-warning {
+    background: #FFF3CD;
+    border-left: 4px solid #F0B429;
+}
+
+.ucfc-alert-info {
+    background: #D1ECF1;
+    border-left: 4px solid #0C5460;
+}
+
+.ucfc-alert .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.ucfc-alert .button {
+    margin-left: auto;
+}
+
+/* ============================================
+   MENU BUILDER
+   ============================================ */
+.ucfc-menu-builder {
+    margin-top: 20px;
+}
+
+.ucfc-categories-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.ucfc-cat-tab {
+    padding: 10px 20px;
+    background: #f5f5f5;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.ucfc-cat-tab:hover {
+    background: #e8e8e8;
+}
+
+.ucfc-cat-tab.active {
+    background: #C92A2A;
+    color: white;
+    border-color: #A10E0E;
+}
+
+.ucfc-add-category {
+    background: white;
+    border: 2px dashed #C92A2A;
+    color: #C92A2A;
+}
+
+.ucfc-add-category:hover {
+    background: #FFF3CD;
+}
+
+/* ============================================
+   MENU CARDS GRID
+   ============================================ */
+.ucfc-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    min-height: 400px;
+}
+
+.ucfc-menu-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    cursor: move;
+}
+
+.ucfc-menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.ucfc-card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: #f5f5f5;
+}
+
+.ucfc-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ucfc-no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+}
+
+.ucfc-no-image .dashicons {
+    font-size: 64px;
+    color: #ccc;
+}
+
+.ucfc-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ucfc-menu-card:hover .ucfc-card-overlay {
+    opacity: 1;
+}
+
+.ucfc-card-overlay button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.ucfc-card-overlay button:hover {
+    background: #C92A2A;
+    color: white;
+    transform: scale(1.1);
+}
+
+.ucfc-card-content {
+    padding: 20px;
+}
+
+.ucfc-card-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #2D2D2D;
+}
+
+.ucfc-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.ucfc-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #C92A2A;
+}
+
+.ucfc-profit {
+    font-size: 13px;
+    padding: 3px 8px;
+    background: #D4EDDA;
+    color: #155724;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.ucfc-card-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    color: #666;
+}
+
+.ucfc-card-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ucfc-card-placeholder {
+    background: #FFF3CD;
+    border: 2px dashed #F0B429;
+    border-radius: 12px;
+}
+
+/* ============================================
+   QUICK EDIT MODAL
+   ============================================ */
+.ucfc-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ucfc-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+}
+
+.ucfc-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.ucfc-modal-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ucfc-modal-header h2 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+}
+
+.ucfc-modal-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f5f5f5;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.ucfc-modal-close:hover {
+    background: #C92A2A;
+    color: white;
+}
+
+.ucfc-modal-body {
+    padding: 30px;
+    overflow-y: auto;
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+.ucfc-form-row {
+    margin-bottom: 20px;
+}
+
+.ucfc-form-row label:not(.ucfc-checkbox) {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2D2D2D;
+}
+
+.ucfc-form-row input[type="text"],
+.ucfc-form-row input[type="number"],
+.ucfc-form-row select,
+.ucfc-form-row textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.ucfc-form-row input:focus,
+.ucfc-form-row select:focus,
+.ucfc-form-row textarea:focus {
+    border-color: #C92A2A;
+    outline: none;
+}
+
+.ucfc-form-row small {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.ucfc-form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.ucfc-form-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.ucfc-checkbox {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.ucfc-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.ucfc-form-actions .button-link-delete {
+    margin-left: auto;
+    color: #C92A2A;
+}
+
+/* ============================================
+   BULK EDIT MODE
+   ============================================ */
+.ucfc-bulk-mode {
+    position: relative;
+}
+
+.ucfc-bulk-checkbox {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.ucfc-bulk-actions {
+    background: #FFF3CD;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ucfc-bulk-count {
+    margin-left: auto;
+    font-weight: 600;
+    color: #C92A2A;
+}
+
+/* ============================================
+   ANALYTICS STYLES
+   ============================================ */
+.ucfc-menu-analytics {
+    background: #f5f5f5;
+    margin: -20px -20px 0 -42px;
+    padding: 30px;
+}
+
+.ucfc-analytics-filters {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.ucfc-analytics-filters select {
+    padding: 10px 15px;
+    border: 2px solid #e8e8e8;
+    border-radius: 8px;
+}
+
+.ucfc-analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.ucfc-analytics-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ucfc-analytics-card.ucfc-full-width {
+    grid-column: 1 / -1;
+}
+
+.ucfc-analytics-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: #2D2D2D;
+}
+
+.ucfc-analytics-card canvas {
+    max-height: 300px;
+}
+
+.ucfc-insights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.ucfc-insight h4 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+}
+
+.ucfc-insight-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ucfc-insight-list li {
+    padding: 12px 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ucfc-insight-list li span {
+    font-weight: 600;
+    color: #666;
+}
+
+/* ============================================
+   IMPORT/EXPORT STYLES
+   ============================================ */
+.ucfc-import-export {
+    background: #f5f5f5;
+    margin: -20px -20px 0 -42px;
+    padding: 30px;
+}
+
+.ucfc-import-export-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.ucfc-export-section,
+.ucfc-import-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ucfc-export-options,
+.ucfc-import-help {
+    margin: 20px 0;
+}
+
+.ucfc-export-options label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.ucfc-import-dropzone {
+    border: 3px dashed #C92A2A;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #FFF3CD;
+}
+
+.ucfc-import-dropzone:hover,
+.ucfc-import-dropzone.ucfc-dragover {
+    background: #F0B429;
+    transform: scale(1.02);
+}
+
+.ucfc-import-dropzone .dashicons {
+    font-size: 64px;
+    color: #C92A2A;
+    margin-bottom: 15px;
+}
+
+.ucfc-import-dropzone p {
+    margin: 0;
+    font-size: 16px;
+    color: #2D2D2D;
+    font-weight: 600;
+}
+
+.ucfc-import-help {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.ucfc-import-help h3 {
+    margin-top: 0;
+}
+
+.ucfc-import-help code {
+    display: block;
+    padding: 10px;
+    background: white;
+    border-radius: 4px;
+    margin: 10px 0;
+    font-size: 12px;
+}
+
+/* ============================================
+   NOTIFICATIONS
+   ============================================ */
+.ucfc-notification {
+    position: fixed;
+    top: 32px;
+    right: 20px;
+    z-index: 999999;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+}
+
+.ucfc-notification-show {
+    transform: translateX(0);
+}
+
+.ucfc-notification-success {
+    border-left: 4px solid #2E8B57;
+}
+
+.ucfc-notification-error {
+    border-left: 4px solid #C92A2A;
+}
+
+.ucfc-notification-info {
+    border-left: 4px solid #F0B429;
+}
+
+.ucfc-notification .dashicons {
+    font-size: 20px;
+}
+
+/* ============================================
+   QUICK ACTIONS
+   ============================================ */
+.ucfc-quick-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 30px 0;
+}
+
+/* ============================================
+   LOADING
+   ============================================ */
+.ucfc-loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+    .ucfc-import-export-grid,
+    .ucfc-insights-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ucfc-menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .ucfc-dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .ucfc-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ucfc-menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ucfc-form-row-2,
+    .ucfc-form-row-3 {
+        grid-template-columns: 1fr;
+    }
+}
