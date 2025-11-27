@@ -297,7 +297,8 @@ function ucfc_render_modern_dashboard() {
         /* Stat Cards */
         .stat-card {
             width: 100%;
-            min-height: 160px;
+            aspect-ratio: 1 / 1;
+            min-height: 200px;
             padding: 2rem;
             background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
             border: 2px solid rgba(255, 107, 107, 0.1);
