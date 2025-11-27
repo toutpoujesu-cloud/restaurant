@@ -298,7 +298,7 @@ function ucfc_render_modern_dashboard() {
         .stat-card {
             width: 100%;
             min-height: 160px;
-            padding: 1.75rem;
+            padding: 2rem;
             background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
             border: 2px solid rgba(255, 107, 107, 0.1);
             border-radius: 1.5rem;
@@ -306,7 +306,7 @@ function ucfc_render_modern_dashboard() {
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             cursor: pointer;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
