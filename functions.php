@@ -49,8 +49,14 @@ add_action('wp_enqueue_scripts', 'uncle_chans_scripts');
 // Include Restaurant System Files
 require_once get_template_directory() . '/inc/custom-post-types.php';
 require_once get_template_directory() . '/inc/meta-boxes.php';
-require_once get_template_directory() . '/inc/modern-dashboard.php';  // NEW: Modern unified dashboard
-require_once get_template_directory() . '/inc/settings-panel.php';    // NEW: Modern settings panel
+
+// NEW: Include AI Settings FIRST before modern-dashboard
+require_once get_template_directory() . '/inc/ai-settings.php';
+require_once get_template_directory() . '/inc/ai-agent-framework.php';
+require_once get_template_directory() . '/inc/ai-frontend-widget.php';
+
+require_once get_template_directory() . '/inc/modern-dashboard.php';  // Modern unified dashboard (uses AI Settings functions)
+require_once get_template_directory() . '/inc/settings-panel.php';    // Modern settings panel
 require_once get_template_directory() . '/inc/menu-builder.php';
 require_once get_template_directory() . '/inc/menu-dashboard.php';
 
@@ -89,10 +95,5 @@ require_once get_template_directory() . '/inc/ai-chat-engine.php';
 require_once get_template_directory() . '/inc/ai-cache.php';
 require_once get_template_directory() . '/inc/ai-rate-limiter.php';
 require_once get_template_directory() . '/inc/ai-system-check.php';
-
-// NEW: Comprehensive AI Settings with LangChain & LlamaIndex
-require_once get_template_directory() . '/inc/ai-settings.php';
-require_once get_template_directory() . '/inc/ai-agent-framework.php';
-require_once get_template_directory() . '/inc/ai-frontend-widget.php';
 
 // Access via: Restaurant → AI Settings in WordPress Admin
