@@ -474,38 +474,115 @@
 
 ### 📱 Pickup QR Code System
 **Files:** `inc/qr-code-system.php`, `page-scan-pickup.php`  
-**Status:** 🔄 In Progress  
-**Target Lines:** 600+
+**Status:** ✅ Complete  
+**Lines of Code:** 1300+  
+**URL:** `/scan-pickup`
 
-**Planned Features:**
-- QR code generation for each order
-- Display on order confirmation page
-- Include in email confirmations
-- Admin scanner interface
-- Pickup verification system
-- Timestamp pickup completion
-- Staff member tracking
-- Statistics and reporting
+**Features:**
+- Unique QR code generation for each order
+- Display on My Orders page (ready/completed pickup orders)
+- Automatic inclusion in email confirmations
+- Real-time QR code generation via AJAX
+- Refresh QR code functionality
+- 24-hour expiration window
 
-**QR Code Library:**
-- PHP QR Code generator
-- SVG format for scalability
-- Error correction level M
+**QR Code Generation:**
+- Inline SVG format (no external hosting)
+- Encrypted JSON data payload
+- HMAC SHA-256 verification codes
+- Order ID, order number, timestamp
+- Site URL for validation
 - 300x300px default size
 
-**Scanner Features:**
-- Camera-based scanning
-- Manual order number entry
-- Order lookup verification
-- One-click pickup confirmation
-- Invalid code handling
-- Already picked up detection
+**Scanner Interface Features:**
+- 📹 Camera-based QR scanning with overlay
+- ⌨️ Manual order number entry
+- 👁️ Order verification modal with details
+- ✅ One-click pickup confirmation
+- 📊 Real-time statistics dashboard
+- 🎨 Dark theme for kitchen/counter use
+- 📱 Fullscreen mode for tablet deployment
+- 🔔 Animated success/error alerts
 
-**Database Tracking:**
-- Pickup timestamp
-- Staff member ID
-- Verification method (scan/manual)
-- Customer signature (optional)
+**Scanner Dashboard:**
+- Camera preview with corner markers
+- Start/stop camera controls
+- Manual verification form
+- Order details modal (customer info, total, status)
+- Pickup notes field
+- Today's statistics (total, scanned, manual)
+- Admin-only access control
+
+**Security Features:**
+- SHA-256 HMAC verification
+- 24-hour code expiration
+- Admin-only scanner access
+- Duplicate pickup prevention
+- Access verification for QR generation
+- Complete audit trail logging
+
+**Database Table: wp_ucfc_order_pickups**
+```sql
+id (INT, PK, AUTO_INCREMENT)
+order_id (INT, FK)
+order_number (VARCHAR 50, UNIQUE)
+qr_code_data (TEXT) -- Encrypted JSON
+qr_code_path (VARCHAR 255, NULL)
+picked_up (TINYINT 1)
+picked_up_at (DATETIME, NULL)
+picked_up_by (BIGINT, NULL) -- Staff user ID
+verification_method (VARCHAR 50) -- 'scan' or 'manual'
+customer_signature (TEXT, NULL)
+notes (TEXT, NULL)
+created_at (DATETIME)
+```
+
+**AJAX Handlers:**
+- `ucfc_generate_qr` - Generate QR code for order
+- `ucfc_scan_qr` - Scan and validate QR data
+- `ucfc_verify_pickup` - Complete pickup verification
+
+**Pickup Flow:**
+1. Customer places order (pending status)
+2. Order marked ready by kitchen staff
+3. QR code auto-generates on My Orders page
+4. Customer shows QR code at pickup counter
+5. Staff scans code or enters order number
+6. System displays order verification modal
+7. Staff confirms pickup with optional notes
+8. Order status updated to completed
+9. Pickup logged with timestamp and staff ID
+
+**Email Integration:**
+- QR code automatically added to confirmation emails
+- Inline SVG image (works in all email clients)
+- Displays after order details table
+- Includes order number caption
+- Border and styling for visibility
+
+**My Orders Page Integration:**
+- QR section appears for ready/completed pickup orders
+- Purple gradient background
+- Loading spinner during generation
+- Refresh button if regeneration needed
+- Order number displayed below QR code
+- Clear instructions for customer
+
+**Statistics Tracking:**
+- Total pickups count
+- QR scanned vs. manual entry
+- Daily/weekly/monthly reports
+- Staff performance tracking
+- Average pickup time
+- Peak pickup hours
+
+**Setup Script: initialize-qr-system.php**
+- Creates wp_ucfc_order_pickups table
+- Creates scanner page at /scan-pickup
+- Validates system configuration
+- Displays current statistics
+- Provides testing procedures
+- Production deployment checklist
 
 ---
 
@@ -832,12 +909,12 @@ uncle-chans-chicken/
 
 ## Change Log
 
-### Version 4.0 (November 27, 2025)
-- ✅ Added SMS Notifications with Twilio
-- ✅ Added Browser Push Notifications
-- ✅ Added Kitchen Display System
-- ✅ Added Enhanced Order Status Timeline
-- 🔄 Adding Pickup QR Code System
+### Version 4.0 (November 27, 2025) - Phase 4 Complete! 🎉
+- ✅ Added SMS Notifications with Twilio (500+ lines)
+- ✅ Added Browser Push Notifications (1200+ lines)
+- ✅ Added Kitchen Display System (800+ lines)
+- ✅ Added Enhanced Order Status Timeline (400+ lines)
+- ✅ Added Pickup QR Code System (1300+ lines)
 
 ### Version 3.0 (Previous)
 - ✅ Custom theme design
