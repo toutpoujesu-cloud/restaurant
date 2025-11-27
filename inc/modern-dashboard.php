@@ -290,7 +290,7 @@ function ucfc_render_modern_dashboard() {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
-            padding: 0 4rem;
+            padding: 0 8rem 0 2rem;
             margin-bottom: 3rem;
         }
         
