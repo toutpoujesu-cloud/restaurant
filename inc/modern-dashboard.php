@@ -108,21 +108,21 @@ function ucfc_render_modern_dashboard() {
             font-family: var(--font-body);
             background: var(--off-white);
             padding: 0;
-            margin: -20px -20px -20px -42px;
-            width: calc(100% + 42px);
-            max-width: calc(100vw - 160px);
+            margin: -20px auto -20px auto;
+            width: 100%;
+            max-width: 1600px;
             overflow-x: hidden;
             min-height: 100vh;
         }
         
         /* Section Headers */
         .section-header {
-            margin: 2rem 0.5rem 1.5rem;
+            margin: 3rem 2rem 2rem;
         }
         
         .section-header h2 {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: var(--dark-charcoal);
             margin: 0;
@@ -131,12 +131,12 @@ function ucfc_render_modern_dashboard() {
         /* Header Section */
         .dashboard-header {
             background: var(--gradient-hero);
-            padding: 1.5rem 0.5rem;
+            padding: 2rem 2rem;
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 1rem 1rem;
+            border-radius: 0 0 1.5rem 1.5rem;
             box-shadow: 0 8px 32px rgba(255, 107, 107, 0.18);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
         }
         
         .header-bg {
@@ -289,16 +289,16 @@ function ucfc_render_modern_dashboard() {
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
-            padding: 0 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            padding: 0 2rem;
+            margin-bottom: 3rem;
         }
         
         /* Stat Cards */
         .stat-card {
             width: 100%;
-            min-height: 140px;
-            padding: 1.25rem;
+            min-height: 160px;
+            padding: 1.75rem;
             background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
             border: 2px solid rgba(255, 107, 107, 0.1);
             border-radius: 1.5rem;
@@ -398,9 +398,9 @@ function ucfc_render_modern_dashboard() {
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            padding: 0 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            padding: 0 2rem;
+            margin-bottom: 3rem;
         }
         
         .quick-actions-header {
@@ -426,8 +426,8 @@ function ucfc_render_modern_dashboard() {
         /* Action Cards */
         .action-card {
             position: relative;
-            padding: 1.25rem;
-            min-height: 150px;
+            padding: 1.75rem;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFB 100%);
@@ -519,7 +519,7 @@ function ucfc_render_modern_dashboard() {
         .recent-activity-container {
             background: linear-gradient(145deg, #FFFFFF 0%, #F9FAFB 100%);
             border-radius: 1.5rem;
-            padding: 1.75rem;
+            padding: 2rem;
             border: 2px solid rgba(255, 107, 107, 0.1);
             box-shadow: 0 8px 32px rgba(255, 107, 107, 0.08);
         }
@@ -660,9 +660,9 @@ function ucfc_render_modern_dashboard() {
         .phase4-features {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
-            padding: 0 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            padding: 0 2rem;
+            margin-bottom: 3rem;
         }
         
         .feature-card {
@@ -750,9 +750,9 @@ function ucfc_render_modern_dashboard() {
         .two-column-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-            padding: 0 0.5rem;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            padding: 0 2rem;
         }
         
         /* Responsive Breakpoints */
