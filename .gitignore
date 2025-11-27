@@ -1,0 +1,26 @@
+# WordPress
+*.log
+.htaccess
+sitemap.xml
+sitemap.xml.gz
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Import scripts (already run)
+import-direct.php
+update-images.php
+import-menu-page.php
