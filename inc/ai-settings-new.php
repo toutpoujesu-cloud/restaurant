@@ -12,6 +12,9 @@ if (!defined('ABSPATH')) {
 add_action('wp_ajax_save_ai_settings', 'restaurant_save_ai_settings');
 add_action('wp_ajax_nopriv_save_ai_settings', 'restaurant_save_ai_settings');
 
+// Handle service URL save
+add_action('wp_ajax_save_ai_service_url', 'restaurant_save_ai_service_url');
+
 // Handle file upload
 add_action('wp_ajax_upload_kb_file', 'restaurant_upload_kb_file');
 
@@ -46,6 +49,28 @@ function restaurant_save_ai_settings() {
     update_option('restaurant_api_keys', $api_keys);
 
     wp_send_json_success(['message' => 'AI Settings saved successfully']);
+}
+
+/**
+ * Handle AI service URL configuration
+ */
+function restaurant_save_ai_service_url() {
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ai_settings_nonce')) {
+        wp_send_json_error(['message' => 'Security check failed']);
+    }
+
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error(['message' => 'Insufficient permissions']);
+    }
+
+    $url = esc_url_raw($_POST['url'] ?? '');
+
+    if (!$url) {
+        wp_send_json_error(['message' => 'Invalid URL']);
+    }
+
+    update_option('ai_service_url', $url);
+    wp_send_json_success(['message' => 'Service URL saved']);
 }
 
 /**
@@ -365,6 +390,18 @@ function restaurant_render_ai_settings_tab() {
 
         <div class="success-message" id="success-message">✓ Settings saved successfully</div>
 
+        <!-- Service Configuration Section -->
+        <div class="ai-section" style="border-left-color: #10B981; background: #f0fdf4;">
+            <h3>🚀 AI Service Configuration</h3>
+            <div class="form-group">
+                <label class="form-label">AI Service URL</label>
+                <input type="url" class="form-input" id="ai_service_url" placeholder="http://localhost:8000" value="<?php echo esc_attr(get_option('ai_service_url', 'http://localhost:8000')); ?>">
+                <span class="form-hint">Default: http://localhost:8000 (running on this machine)</span>
+            </div>
+            <button class="submit-btn" id="test-service-btn" style="background: #10B981;">🔍 Test Connection</button>
+            <div id="service-status" style="margin-top: 10px;"></div>
+        </div>
+
         <!-- LLM Provider Section -->
         <div class="ai-section">
             <h3>📊 Select LLM Provider</h3>
@@ -485,6 +522,40 @@ function restaurant_render_ai_settings_tab() {
 
     <script>
     jQuery(document).ready(function($) {
+        // Test AI Service Connection
+        $('#test-service-btn').click(function() {
+            var serviceUrl = $('#ai_service_url').val().trim();
+            var $status = $('#service-status');
+            
+            if (!serviceUrl) {
+                $status.html('❌ Please enter a service URL');
+                return;
+            }
+
+            $status.html('⏳ Testing connection...');
+
+            $.ajax({
+                url: serviceUrl + '/health',
+                type: 'GET',
+                timeout: 5000,
+                success: function(response) {
+                    $status.html('✅ Service is healthy! (' + response.version + ')');
+                    $status.css('color', '#10B981');
+                    
+                    // Save the URL
+                    $.post('<?php echo admin_url("admin-ajax.php"); ?>', {
+                        action: 'save_ai_service_url',
+                        nonce: '<?php echo $nonce; ?>',
+                        url: serviceUrl
+                    });
+                },
+                error: function(xhr, status, error) {
+                    $status.html('❌ Service not responding. Make sure it\'s running at ' + serviceUrl);
+                    $status.css('color', '#EF4444');
+                }
+            });
+        });
+
         // Select provider
         function selectProvider(provider) {
             $('input[name="llm_provider"][value="' + provider + '"]').prop('checked', true);

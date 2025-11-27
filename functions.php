@@ -50,10 +50,11 @@ add_action('wp_enqueue_scripts', 'uncle_chans_scripts');
 require_once get_template_directory() . '/inc/custom-post-types.php';
 require_once get_template_directory() . '/inc/meta-boxes.php';
 
-// NEW: Include AI Settings FIRST before modern-dashboard
-require_once get_template_directory() . '/inc/ai-settings-new.php';
-require_once get_template_directory() . '/inc/ai-agent-framework.php';
-require_once get_template_directory() . '/inc/ai-frontend-widget.php';
+// AI Integration Files - Service client MUST be first
+require_once get_template_directory() . '/inc/ai-service-client.php';      // Python service client
+require_once get_template_directory() . '/inc/ai-settings-new.php';         // Admin settings UI
+require_once get_template_directory() . '/inc/ai-agent-framework.php';      // LLM orchestration
+require_once get_template_directory() . '/inc/ai-frontend-widget.php';      // Public chat widget
 
 require_once get_template_directory() . '/inc/modern-dashboard.php';  // Modern unified dashboard (uses AI Settings functions)
 require_once get_template_directory() . '/inc/settings-panel.php';    // Modern settings panel
